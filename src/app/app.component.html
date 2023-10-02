@@ -1,16 +1,9 @@
 <button [hidden]="true" type="button" (click)="a()">teste</button>
 <p-messages #msg [styleClass]="'w-12'"></p-messages>
-<div class="field-checkbox">
-  <p-checkbox
-    [(ngModel)]="checked"
-    [binary]="true"
-    inputId="binary"
-    (onChange)="changeTheme(checked)"
-  ></p-checkbox>
-  <label for="binary"> Dark Mode</label>
-</div>
+
 
 <app-exemplos [vp]="vp"></app-exemplos>
+<app-table [vp]="vp"></app-table>
 
 <div class="progress-spinner-parent" *ngIf="vp.Buscando_WS">
   <p-progressSpinner class="progress-spinner"></p-progressSpinner>

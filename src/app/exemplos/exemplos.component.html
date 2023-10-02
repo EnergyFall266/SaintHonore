@@ -1,21 +1,63 @@
-<div class="card">
-  <p-messages
-    [styleClass]="'w-12'"
-    [(value)]="vp.alertas"
-    [enableService]="false"
-  ></p-messages>
+<div class="grid">
+  <div class="col-12 ">
+    <h2>Baixa Especial de Estoque</h2>
+  </div>
+  
 
-  <h5 style="font-weight: normal" class="mt-0 mb-2">
-    (<span style="color: red">*</span>) Atenção aos campos obrigatórios
-  </h5>
+  <!-- dropdown -->
+  <div class="col-2">
+    <div class="grid">
+      <div class="col-12 py-0">
+        <p-dropdown
+          class="w-12"
+          [styleClass]="'w-12'"
+          [panelStyleClass]="'col-12'"
+          [options]="cities"
+          placeholder="Selecione"
+          optionLabel="name"
+          optionValue="code"
+        ></p-dropdown>
+      </div>
+    </div>
+  </div>
 
-  <p-tabMenu
-    [model]="menus"
-    [activeItem]="activeMenu"
-    [scrollable]="!vp.overlay"
-  ></p-tabMenu>
+  <div class="col-2">
+    <div class="grid">
+      <div class="col-12 py-0">
+        <p-dropdown
+          class="w-12"
+          [styleClass]="'w-12'"
+          [panelStyleClass]="'col-12'"
+          [options]="cities"
+          placeholder="Selecione"
+          optionLabel="name"
+          optionValue="code"
+        ></p-dropdown>
+      </div>
+    </div>
+  </div>
 
-  <app-t1-exemplos [vp]="vp" [hidden]="panel['t1_exemplos']"></app-t1-exemplos>
-  <app-t2-exemplos [vp]="vp" [hidden]="panel['t2_exemplos']"></app-t2-exemplos>
-  <app-t3-exemplos [vp]="vp" [hidden]="panel['t3_exemplos']"></app-t3-exemplos>
+  <div class="col-2">
+    <div class="grid">
+      <div class="col-12 py-0">
+        <p-dropdown
+          class="w-12"
+          [styleClass]="'w-12'"
+          [panelStyleClass]="'col-12'"
+          [options]="cities"
+          placeholder="Selecione"
+          optionLabel="name"
+          optionValue="code"
+        ></p-dropdown>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-4">
+    <div class="grid">
+      <div class="col-12 py-0">
+        <input pInputText type="text" class="col-12" placeholder="Integers" />
+      </div>
+    </div>
+  </div>
 </div>

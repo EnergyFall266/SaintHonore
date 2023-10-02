@@ -1,7 +1,7 @@
 import { MenuItem } from 'primeng/api';
 import { VP_BPM } from 'src/beans/VP_BPM';
 import { Component, Input, OnInit } from '@angular/core';
-import * as fd from 'src/functions/Form_Design';
+
 
 @Component({
   selector: 'app-exemplos',
@@ -10,13 +10,21 @@ import * as fd from 'src/functions/Form_Design';
 })
 export class ExemplosComponent implements OnInit {
   @Input() vp!: VP_BPM;
+  cities: City[];
 
-  public menus: MenuItem[] = fd.Menus;
-  public activeMenu: MenuItem = {};
-  public panel = fd.Panels;
-  public hideButtons: boolean = false;
 
-  constructor() {}
+  constructor() {this.cities = [
+    { name: 'New York', code: 'NY' },
+    { name: 'Rome', code: 'RM' },
+    { name: 'London', code: 'LDN' },
+    { name: 'Istanbul', code: 'IST' },
+    { name: 'Paris', code: 'PRS' },
+  ];}
 
   ngOnInit(): void {}
+  
+}
+interface City {
+  name: string;
+  code: string;
 }
