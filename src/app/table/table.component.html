@@ -1,1 +1,23 @@
-<p>table works!</p>
+<div class="card">
+  <p-table [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Código</th>
+        <th>Produto</th>
+        <th>Tipo</th>
+        <th>Complemento</th>
+        <th>Quantidade</th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+      <tr>
+        <td>{{ product.code }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.category }}</td>
+        <td>{{ product.quantity }}</td>
+        <td><button type="button" pButton pRipple icon="pi pi-trash"  class="p-button-danger"></button></td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
