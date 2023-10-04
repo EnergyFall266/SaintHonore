@@ -1,6 +1,6 @@
 <div class="card">
-  <p-table [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template pTemplate="header">
+  <p-table [value]="input" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header" >
       <tr>
         <th>Código</th>
         <th>Produto</th>
@@ -10,12 +10,13 @@
         <th></th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-product>
+    <ng-template pTemplate="body" let-input >
       <tr>
-        <td>{{ product.code }}</td>
-        <td>{{ product.name }}</td>
-        <td>{{ product.category }}</td>
-        <td>{{ product.quantity }}</td>
+        <td>{{ input.Filial }}</td>
+        <td>{{ input.Produto }}</td>
+        <td>{{ input.tipoBaixa }}</td>
+        <td>{{ input.Complemento }}</td>
+        <td>{{ input.Quantidade }}</td>
         <td><button type="button" pButton pRipple icon="pi pi-trash"  class="p-button-danger"></button></td>
       </tr>
     </ng-template>

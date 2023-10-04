@@ -1,5 +1,15 @@
-import { Component, Input } from '@angular/core';
-import { VP_BPM } from 'src/beans/VP_BPM';
+import { Component,  } from '@angular/core';
+import { DataService } from '../data.service';
+
+interface input {
+  Filial: string;
+  Deposito: string;
+  tipoBaixa: string;
+  Produto: string;
+  Quantidade: number;
+  Complemento: string;
+  data: any;
+}
 
 @Component({
   selector: 'app-table',
@@ -7,6 +17,12 @@ import { VP_BPM } from 'src/beans/VP_BPM';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent {
-  @Input() vp!: VP_BPM;
+input: input[] = [];
+
+constructor(private dataService: DataService) { }
+
+ngOnInit(): void {
+  this.input = this.dataService.getInputs();
+}
 
 }

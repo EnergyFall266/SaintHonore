@@ -2,9 +2,11 @@
 <p-messages #msg [styleClass]="'w-12'"></p-messages>
 
 
-<app-input[vp]="vp"></app-input>
-<app-table [vp]="vp"></app-table>
-
+<app-input ></app-input>
+<app-table ></app-table>
+<div class="flex justify-content-start mt-4 ">
+  <p-button label="Confirmar" (onClick)="a()"></p-button>
+</div>
 <div class="progress-spinner-parent" *ngIf="vp.Buscando_WS">
   <p-progressSpinner class="progress-spinner"></p-progressSpinner>
 </div>
