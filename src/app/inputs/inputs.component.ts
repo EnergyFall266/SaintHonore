@@ -4,11 +4,11 @@ import { Component, Input, OnInit } from '@angular/core';
 
 
 @Component({
-  selector: 'app-exemplos',
-  templateUrl: './exemplos.component.html',
-  styleUrls: ['./exemplos.component.scss'],
+  selector: 'app-input',
+  templateUrl: './inputs.component.html',
+  styleUrls: ['./inputs.component.scss'],
 })
-export class ExemplosComponent implements OnInit {
+export class InputComponent implements OnInit {
   @Input() vp!: VP_BPM;
   cities: City[];
 

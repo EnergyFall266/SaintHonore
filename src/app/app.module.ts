@@ -26,7 +26,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { FileUploadModule } from 'primeng/fileupload';
 import { RadioButtonModule } from 'primeng/radiobutton';
-import { ExemplosComponent } from './exemplos/exemplos.component';
+import { InputComponent } from './inputs/inputs.component';
 import { AnexoService, PastaService } from './app.service';
 import { Validate_Service } from 'src/services/Validate_Service';
 import { TableComponent } from './table/table.component';
@@ -37,7 +37,7 @@ export const HttpLoaderFactory = (httpClient: HttpClient) =>
 @NgModule({
   declarations: [
     AppComponent,
-    ExemplosComponent,
+    InputComponent,
     TableComponent,
   ],
   imports: [
