@@ -25,4 +25,11 @@ ngOnInit(): void {
   this.input = this.dataService.getInputs();
 }
 
+excluirItem(item: any): void {
+  const index = this.input.indexOf(item);
+    if (index !== -1) {
+      this.input.splice(index, 1); // Remove o item da lista
+    }
+  }
+
 }
