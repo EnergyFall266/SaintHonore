@@ -30,6 +30,7 @@ import { InputComponent } from './inputs/inputs.component';
 import { AnexoService, PastaService } from './app.service';
 import { Validate_Service } from 'src/services/Validate_Service';
 import { TableComponent } from './table/table.component';
+import { ToastModule } from 'primeng/toast';
 
 export const HttpLoaderFactory = (httpClient: HttpClient) =>
   new TranslateHttpLoader(httpClient, 'assets/i18n/');
@@ -63,6 +64,7 @@ export const HttpLoaderFactory = (httpClient: HttpClient) =>
     AppRoutingModule,
     ProgressSpinnerModule,
     FileUploadModule,
+    ToastModule,
     RadioButtonModule,
     TranslateModule.forRoot({
       loader: {

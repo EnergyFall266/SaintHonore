@@ -1,12 +1,14 @@
-<button [hidden]="true" type="button" (click)="a()">teste</button>
-<p-messages #msg [styleClass]="'w-12'"></p-messages>
+<div class="w-screen">
 
-
-<app-input ></app-input>
-<app-table ></app-table>
-<div class="flex justify-content-start mt-4 ">
-  <p-button label="Confirmar" (onClick)="a()"></p-button>
-</div>
-<div class="progress-spinner-parent" *ngIf="vp.Buscando_WS">
-  <p-progressSpinner class="progress-spinner"></p-progressSpinner>
+  
+  
+  <app-input ></app-input>
+  <app-table ></app-table>
+  <div class="flex justify-content-start mt-4 ml-3">
+    <p-button label="Confirmar" (onClick)="a()"></p-button>
+  </div>
+  <div class="progress-spinner-parent" *ngIf="vp.Buscando_WS">
+    <p-progressSpinner class="progress-spinner"></p-progressSpinner>
+  </div>
+  
 </div>

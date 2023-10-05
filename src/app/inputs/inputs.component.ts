@@ -1,8 +1,8 @@
 import { MenuItem } from 'primeng/api';
 import { VP_BPM } from 'src/beans/VP_BPM';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component,  OnInit } from '@angular/core';
 import { DataService } from '../data.service';
-
+import { MessageService } from 'primeng/api';
 
 interface input {
   Filial: string;
@@ -18,6 +18,7 @@ interface input {
   selector: 'app-input',
   templateUrl: './inputs.component.html',
   styleUrls: ['./inputs.component.scss'],
+  providers: [MessageService]
 })
 export class InputComponent implements OnInit {
 
@@ -26,12 +27,12 @@ export class InputComponent implements OnInit {
   Deposito:string = '';
   tipoBaixa:string = '';
   Produto:string = '';
-  Quantidade:number = 10;
+  Quantidade:number = 0;
   Complemento:string = '';
   data:any
 
 
-  constructor(private dataService: DataService ) {
+  constructor(private dataService: DataService, private messageService: MessageService ) {
     this.cities = [
      'New York' ,
     'Rome' ,
@@ -50,6 +51,11 @@ export class InputComponent implements OnInit {
     console.log(this.Quantidade);
     console.log(this.Complemento);
 
+    if(this.Filial == '' || this.Deposito == '' || this.tipoBaixa == '' || this.Produto == '' || this.Quantidade == 0 || this.Quantidade == null || this.Complemento == '' || this.data == null){
+      this.messageService.add({severity:'warn', summary: 'Atenção', detail: 'Preencha todos os campos!'});
+    }
+    else{
+
     let input: input = {
       Filial: this.Filial,
       Deposito: this.Deposito,
@@ -62,6 +68,7 @@ export class InputComponent implements OnInit {
     this.dataService.setInputs(input);
     
   }
+}
   
 }
 
