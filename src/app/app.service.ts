@@ -6,7 +6,7 @@ import * as wsb from 'src/beans/WS_Beans';
 import { ResponseLoadData } from 'src/beans/VP_BPM';
 import { exportaG5 } from 'src/functions/WS_Axios';
 
-const STEP = environment.tarefa();
+
 
 @Injectable({
   providedIn: 'root'
@@ -15,101 +15,64 @@ const STEP = environment.tarefa();
 export class AppService {
   constructor() { }
 
-  public async exportaWS(port: string, body: string = '') {
-    let g5: wsb.G5Response;
+  async loadTipoDespesas() {
+  const axios = require('axios');
+  let data = JSON.stringify({
+    "codEmp": ""
+  });
+  
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: 'https://sh.prismainformatica.com.br:8181/SXI-API/G5Rest?server=https://localhost:8181&module=sapiens&service=com.prisma.dadosgerais&port=TipoDespesa',
+    headers: { 
+      'Content-Type': 'application/json', 
+      'Authorization': 'Bearer Svvdb7AJmQqYXZHhVnUdK3NJ1D7THHG6', 
+      'Cookie': 'ASP.NET_SessionId=klagenaxhisjv1zgys0dq5qg'
+    },
+    data : data
+  };
+  
+  try {
+    const response = await axios.request(config);
+  return response.data.dadosGerais
+    
+  } catch (error: any) {
+    console.log(error);
+    ;
+  }
+  
+  }
 
-    g5 = await exportaG5(port, body);
+  async loadProdutosDeposito() {
+    const axios = require('axios');
+let data = JSON.stringify({
+  "codEmp": "1"
+});
 
-    const r: {
-      totReg: number;
-      msgRet: string;
-      servicos: any[];
-    } = { totReg: g5.qtdReg ?? 0, msgRet: g5.msgRet ?? '', servicos: g5.servicos ?? [] };
+let config = {
+  method: 'post',
+  maxBodyLength: Infinity,
+  url: 'https://sh.prismainformatica.com.br:8181/SXI-API/G5Rest?server=https://localhost:8181&module=sapiens&service=com.prisma.dadosgerais&port=ConsultarProduto',
+  headers: { 
+    'Content-Type': 'application/json', 
+    'Authorization': 'Bearer Svvdb7AJmQqYXZHhVnUdK3NJ1D7THHG6', 
+    'Cookie': 'ASP.NET_SessionId=klagenaxhisjv1zgys0dq5qg'
+  },
+  data : data
+};
 
-    return r
+try {
+  const response = await axios.request(config);
+  
+return response.data;
+
+  
+} catch (error: any) {
+  console.log(error);
+  ;
+}
   }
 }
 
 
-export class PastaService {
-
-  async pegarPastas(vp: VP_BPM, pan?: string) {
-    const paiId: string = await gedf.checkFolder(
-      vp.token,
-      {
-        name: vp.ged_pasta_pai_nome,
-        description: vp.ged_pasta_pai_nome,
-        permissions: environment.ged_papel,
-        inheritedPermission: true,
-      },
-      ''
-    );
-    if (paiId == '') {
-      return;
-    }
-
-    const proId: string = await gedf.checkFolder(
-      vp.token,
-      {
-        name: vp.GED_pasta_codigo,
-        description: vp.ged_pasta_pai_id,
-        parent: paiId,
-        permissions: environment.ged_papel,
-        inheritedPermission: true,
-      },
-      paiId
-    );
-    if (proId == '') {
-      return;
-    }
-
-    if (pan) {
-      const panId: string = await gedf.checkFolder(
-        vp.token,
-        {
-          name: pan,
-          description: pan,
-          parent: proId,
-          permissions: environment.ged_papel,
-          inheritedPermission: true,
-        },
-        proId
-      );
-      if (panId == '') {
-        return;
-      }
-      return { paiId, proId, panId };
-    }
-
-    return { paiId, proId, panId: '' };
-  }
-
-
-
-
-}
-
-export class AnexoService {
-  async anexoLoad(rld: ResponseLoadData): Promise<void> {
-    switch (STEP) {
-      case environment.s1_etapa1:
-        break;
-      case environment.s2_etapa2:
-        if (rld.vp.anexo_id != '') {
-          rld.vp.anexo_ged = (
-            await gedf.folderList(0, rld.vp.token, rld.vp.anexo_id)
-          ).files.map(
-            (d: any): gedf.Anexo => ({
-              gedId: d.id,
-              arquivoGED: d,
-              enviado: true,
-              estadoGED: d.status == 'PUBLISHED' ? 'Publicado' : 'Pendente',
-              classTemplateGED:
-                d.status == 'PUBLISHED' ? 'bg-green-600' : 'bg-yellow-500',
-            })
-          );
-        }
-        break;
-    }
-  }
-}
