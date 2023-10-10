@@ -1,4 +1,4 @@
-<div class="grid overflow-hidden">
+<div class="grid overflow-x-hidden z-5">
   <div class="col-12 bg-blue-100 pl-5 mb-4 flex flex-wrap pb-0">
     <h2>Baixa Especial de Estoque</h2>
   </div>
@@ -8,16 +8,17 @@
         <div class="col-12 py-0 mb-3 ml-2 mr-3">
           <span class="font-semibold -mr-2">Filial*</span>
         </div>
-        <div class="col-12 py-0 flex justify-content-center">
+        <div class="col-12 py-0 flex justify-content-center ">
           <p-dropdown
-            class="w-12"
+            class="w-12 "
             [styleClass]="'w-12'"
-            [panelStyleClass]="'col-12'"
+            [panelStyleClass]="'col-12 '"
             [options]="filial"
             optionLabel="nomFil"
             placeholder="Selecione"
             optionValue="nomFil"
             [(ngModel)]="Filial"
+            appendTo="body"
           ></p-dropdown>
         </div>
       </div>
@@ -38,6 +39,7 @@
             placeholder="Selecione"
             optionValue="desDep"
             [(ngModel)]="Deposito"
+            appendTo="body"
           ></p-dropdown>
         </div>
       </div>
@@ -58,6 +60,7 @@
             placeholder="Selecione"
             [(ngModel)]="tipoBaixa"
             optionValue="desDes"
+            appendTo="body"
           ></p-dropdown>
         </div>
       </div>
@@ -79,6 +82,7 @@
             [(ngModel)]="Produto"
             optionValue="desPro"
             [filter]="true"
+            appendTo="body"
           >
           </p-dropdown>
         </div>
