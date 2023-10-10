@@ -1,8 +1,8 @@
-<div class="grid ">
-  <div class="col-12 bg-blue-100 pl-5 mb-4 flex flex-wrap pb-0 ">
+<div class="grid overflow-hidden">
+  <div class="col-12 bg-blue-100 pl-5 mb-4 flex flex-wrap pb-0">
     <h2>Baixa Especial de Estoque</h2>
   </div>
-  <div class="grid ml-3 w-screen flex justify-content-evenly ">
+  <div class="grid ml-3 w-screen flex justify-content-evenly">
     <div class="col-1 min-w-max w-1rem">
       <div class="grid w-14rem">
         <div class="col-12 py-0 mb-3 ml-2 mr-3">
@@ -23,14 +23,14 @@
       </div>
     </div>
 
-    <div class="col-1 min-w-max w-1 ">
+    <div class="col-1 min-w-max w-1">
       <div class="grid w-14rem">
         <div class="col-12 py-0 mb-3 ml-2 -mr-3">
           <span class="font-semibold -mr-2">Depósito*</span>
         </div>
-        <div class="col-12 py-0 flex justify-content-center ">
+        <div class="col-12 py-0 flex justify-content-center">
           <p-dropdown
-            class="w-12 "
+            class="w-12"
             [styleClass]="'w-12'"
             [panelStyleClass]="'col-12'"
             [options]="depositos"
@@ -48,7 +48,7 @@
         <div class="col-12 py-0 mb-3 ml-2 -mr-6">
           <span class="font-semibold -mr-2">Tipo de Baixa*</span>
         </div>
-        <div class="col-12 py-0 ">
+        <div class="col-12 py-0">
           <p-dropdown
             class="w-12"
             [styleClass]="'w-12 '"
@@ -108,14 +108,21 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="grid ml-3 mb-2 mr-0">
-    <div class="col-12">
-      <span class="font-semibold">Complemento</span>
+
+    <div class="grid">
+      <div class="col-12 ml-3">
+        <span class="font-semibold">Complemento</span>
+      </div>
+      <div class="col-12 w-screen pr-5 pl-3">
+        <input
+          type="text"
+          pInputText
+          class="w-full"
+          [(ngModel)]="Complemento"
+        />
+      </div>
     </div>
-    <div class="col-12 w-screen pr-4">
-      <input type="text" pInputText class="w-full" [(ngModel)]="Complemento" />
-    </div>
   </div>
+
   <p-toast></p-toast>
 </div>
