@@ -19,6 +19,7 @@
             optionValue="nomFil"
             [(ngModel)]="Filial"
             appendTo="body"
+            (onChange)="selecionaDesposito()"
           ></p-dropdown>
         </div>
       </div>
@@ -34,12 +35,13 @@
             class="w-12"
             [styleClass]="'w-12'"
             [panelStyleClass]="'col-12'"
-            [options]="depositos"
+            [options]="depositoFiltrado"
             optionLabel="desDep"
             placeholder="Selecione"
             optionValue="desDep"
             [(ngModel)]="Deposito"
             appendTo="body"
+            [disabled]="boolDeposito"
           ></p-dropdown>
         </div>
       </div>

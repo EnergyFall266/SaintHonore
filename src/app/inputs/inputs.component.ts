@@ -1,12 +1,11 @@
-import { MenuItem } from 'primeng/api';
-import { VP_BPM } from 'src/beans/VP_BPM';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { DataService } from '../data.service';
 import { MessageService } from 'primeng/api';
 import { AppService } from '../app.service';
 
 interface input {
   Filial: string;
+  codigo: string;
   Deposito: string;
   tipoBaixa: string;
   Produto: string;
@@ -33,6 +32,8 @@ export class InputComponent implements OnInit {
   produtos: any;
   filial: any;
   depositos: any;
+  depositoFiltrado: any = [];
+  boolDeposito: boolean = true;
 
   constructor(
     private dataService: DataService,
@@ -49,9 +50,12 @@ export class InputComponent implements OnInit {
     this.produtos = ConsultarProduto.produtos;
     this.filial = ConsultarProduto.filial;
     this.depositos = ConsultarProduto.depositos;
+
     console.log(this.produtos);
     console.log(this.filial);
     console.log(this.depositos);
+    console.log(ConsultarProduto);
+    
   }
   incluir() {
     console.log(this.Filial);
@@ -76,8 +80,10 @@ export class InputComponent implements OnInit {
         detail: 'Preencha todos os campos!',
       });
     } else {
+      const objetosFiltrados:any = this.produtos.find((objeto: { desPro: string; }) => objeto.desPro === this.Produto);
       let input: input = {
         Filial: this.Filial,
+        codigo: objetosFiltrados.codPro,
         Deposito: this.Deposito,
         tipoBaixa: this.tipoBaixa,
         Produto: this.Produto,
@@ -87,5 +93,15 @@ export class InputComponent implements OnInit {
       };
       this.dataService.setInputs(input);
     }
+  }
+
+  selecionaDesposito() {
+    let codFil = this.filial.find((objeto: { nomFil: string; }) => objeto.nomFil === this.Filial);
+  let prefixo = "D0" +  codFil.codFil;
+  this.depositoFiltrado = this.depositos.filter((objeto: { codDep: string; }) => objeto.codDep.startsWith(prefixo));
+  this.boolDeposito = false;
+  console.log(this.depositoFiltrado);
+  
+
   }
 }

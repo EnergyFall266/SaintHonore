@@ -30,7 +30,7 @@ export class AppService {
       'Authorization': 'Bearer Svvdb7AJmQqYXZHhVnUdK3NJ1D7THHG6', 
       'Cookie': 'ASP.NET_SessionId=klagenaxhisjv1zgys0dq5qg'
     },
-    data : data
+    data : data,
   };
   
   try {
