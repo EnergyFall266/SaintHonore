@@ -1,4 +1,4 @@
-import { Component,  } from '@angular/core';
+import { Component, Input,  } from '@angular/core';
 import { DataService } from '../data.service';
 
 interface input {
@@ -18,17 +18,20 @@ interface input {
 })
 export class TableComponent {
 input: input[] = [];
+@Input() confirmacao: any;
 
 constructor(private dataService: DataService) { }
 
 ngOnInit(): void {
   this.input = this.dataService.getInputs();
+
+  
 }
 
 excluirItem(item: any): void {
   const index = this.input.indexOf(item);
     if (index !== -1) {
-      this.input.splice(index, 1); // Remove o item da lista
+      this.input.splice(index, 1); 
     }
   }
 

@@ -1,9 +1,5 @@
-import { Component, } from '@angular/core';
+import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-
-
-
-
 
 @Component({
   selector: 'app-root',
@@ -11,12 +7,10 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./app.component.scss'],
   providers: [MessageService],
 })
-
 export class AppComponent {
-
+  mostrarOverlay: boolean = false;
   constructor() {}
-
-
-
+  confirmacao() {
+    this.mostrarOverlay = true;
   }
-
+}
