@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { DataService } from './data.service';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +10,13 @@ import { MessageService } from 'primeng/api';
 })
 export class AppComponent {
   mostrarOverlay: boolean = false;
-  constructor() {}
+  constructor(private dataService: DataService) {}
   confirmacao() {
     this.mostrarOverlay = true;
+  }
+  emitirNota(){
+
+    console.log(this.dataService.getInputs());
+    
   }
 }

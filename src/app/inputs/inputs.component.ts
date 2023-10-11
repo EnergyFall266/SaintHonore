@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { MessageService } from 'primeng/api';
 import { AppService } from '../app.service';
@@ -12,6 +12,17 @@ interface input {
   Quantidade: number;
   Complemento: string;
   data: any;
+  // codEmp:number
+  // codFil:number
+  // codSnf:number
+  // numNfv:number
+  // tipNfs:number
+  // codEdc:number
+  // tnsPro:number
+  // datEmi:Date
+  // codCli:number
+  // codCpg:number
+  // obsNfv:string
 }
 
 @Component({
@@ -55,7 +66,6 @@ export class InputComponent implements OnInit {
     console.log(this.filial);
     console.log(this.depositos);
     console.log(ConsultarProduto);
-    
   }
   incluir() {
     console.log(this.Filial);
@@ -80,7 +90,9 @@ export class InputComponent implements OnInit {
         detail: 'Preencha todos os campos!',
       });
     } else {
-      const objetosFiltrados:any = this.produtos.find((objeto: { desPro: string; }) => objeto.desPro === this.Produto);
+      const objetosFiltrados: any = this.produtos.find(
+        (objeto: { desPro: string }) => objeto.desPro === this.Produto
+      );
       let input: input = {
         Filial: this.Filial,
         codigo: objetosFiltrados.codPro,
@@ -96,12 +108,14 @@ export class InputComponent implements OnInit {
   }
 
   selecionaDesposito() {
-    let codFil = this.filial.find((objeto: { nomFil: string; }) => objeto.nomFil === this.Filial);
-  let prefixo = "D0" +  codFil.codFil;
-  this.depositoFiltrado = this.depositos.filter((objeto: { codDep: string; }) => objeto.codDep.startsWith(prefixo));
-  this.boolDeposito = false;
-  console.log(this.depositoFiltrado);
-  
-
+    let codFil = this.filial.find(
+      (objeto: { nomFil: string }) => objeto.nomFil === this.Filial
+    );
+    let prefixo = 'D0' + codFil.codFil;
+    this.depositoFiltrado = this.depositos.filter(
+      (objeto: { codDep: string }) => objeto.codDep.startsWith(prefixo)
+    );
+    this.boolDeposito = false;
+    console.log(this.depositoFiltrado);
   }
 }

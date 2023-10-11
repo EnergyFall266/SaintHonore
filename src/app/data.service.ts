@@ -15,5 +15,8 @@ export class DataService {
   getInputs() {
     return this.sharedData;
   }
+  updateInputs(data: any) {
+    this.sharedData = data;
+  }
 
 }

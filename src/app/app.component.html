@@ -13,8 +13,8 @@
     </div>
     <ng-template pTemplate="footer" >
       <div class="flex justify-content-between">
-        <p-button (click)="mostrarOverlay = false" label="Cancelar" styleClass="p-button-text"></p-button>
-        <p-button (click)="mostrarOverlay = false" label="Confirmar" styleClass="p-button-text"></p-button>
+        <p-button (click)="mostrarOverlay = false"  label="Cancelar"  styleClass="p-button-text"></p-button>
+        <p-button (click)="mostrarOverlay = false" (onClick)="emitirNota()" label="Confirmar" styleClass="p-button-text"></p-button>
       </div>
     </ng-template>
 </p-dialog>
