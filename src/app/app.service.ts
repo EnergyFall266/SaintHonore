@@ -35,6 +35,7 @@ export class AppService {
   
   try {
     const response = await axios.request(config);
+    
   return response.data.dadosGerais
     
   } catch (error: any) {
