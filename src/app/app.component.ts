@@ -10,13 +10,38 @@ import { DataService } from './data.service';
 })
 export class AppComponent {
   mostrarOverlay: boolean = false;
-  constructor(private dataService: DataService) {}
-  confirmacao() {
-    this.mostrarOverlay = true;
-  }
-  emitirNota(){
+  dadosNota: any[] = [];
 
+  constructor(
+    private dataService: DataService,
+    private messageService: MessageService
+  ) {}
+  confirmacao() {
+    if (this.dataService.getInputs().length == 0) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Atenção',
+        detail: 'Nenhum item adicionado',
+      });
+    } else {
+      this.mostrarOverlay = true;
+    }
+  }
+  emitirNota() {
+    this.dadosNota = [];
+    let count = 1;
     console.log(this.dataService.getInputs());
+    // this.dataService.getInputs().forEach((element) => {
+    //   this.dadosNota.push(element.dadosGerais);
+    // });
+    // console.log(this.dadosNota);
+
+    // this.dadosNota.forEach((element) => {
+    //   element.Produtos.forEach((element2: any) => {
+    //     element2.SeqIpv = count++;
+    //   });
+    // });
+    // console.log(this.dadosNota);
     
   }
 }

@@ -12,7 +12,7 @@ interface input {
   Produto: string;
   Quantidade: number;
   Complemento: string;
-dadosGerais: dadosGerais;
+  dadosGerais: dadosGerais;
 }
 interface dadosGerais {
   CodEmp: number;
@@ -68,7 +68,6 @@ export class InputComponent implements OnInit {
   depositoFiltrado: any = [];
   boolDeposito: boolean = true;
 
-
   constructor(
     private dataService: DataService,
     private messageService: MessageService,
@@ -79,18 +78,24 @@ export class InputComponent implements OnInit {
     this.importa();
   }
   async importa() {
-    this.baixa = await this.appService.loadTipoDespesas();
-    let ConsultarProduto = await this.appService.loadProdutosDeposito();
-    this.produtos = ConsultarProduto.produtos;
-    this.filial = ConsultarProduto.filial;
-    this.depositos = ConsultarProduto.depositos;
-
-    console.log(this.produtos);
-    console.log(this.filial);
-    console.log(this.depositos);
-    console.log(ConsultarProduto);
-    console.log(this.baixa);
-    
+    try {
+      this.baixa = await this.appService.loadTipoDespesas();
+      let ConsultarProduto = await this.appService.loadProdutosDeposito();
+      this.produtos = ConsultarProduto.produtos;
+      this.filial = ConsultarProduto.filial;
+      this.depositos = ConsultarProduto.depositos;
+      console.log(this.produtos);
+      console.log(this.filial);
+      console.log(this.depositos);
+      console.log(ConsultarProduto);
+      console.log(this.baixa);
+    } catch (error: any) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Erro',
+        detail: error,
+      });
+    }
   }
   incluir() {
     console.log(this.Filial);
@@ -100,15 +105,14 @@ export class InputComponent implements OnInit {
     console.log(this.Quantidade);
     console.log(this.Complemento);
 
-
     if (
       this.Filial === '' ||
       this.Deposito === '' ||
+      this.Deposito === null ||
       this.tipoBaixa === '' ||
       this.Produto === '' ||
       this.Quantidade === 0 ||
-      this.Quantidade === null 
-
+      this.Quantidade === null
     ) {
       this.messageService.add({
         severity: 'warn',
@@ -139,40 +143,38 @@ export class InputComponent implements OnInit {
         Complemento: this.Complemento,
 
         dadosGerais: {
-        CodEmp: baixaFiltrada.codEmp,
-        CodFil: filialFiltrada.codFil,
-        CodSnf: baixaFiltrada.codSnf.toString(),
-        NumNfv: '0',
-        TipNfs: 1,
-        CodEdc: '55',
-        TnsPro: baixaFiltrada.codTns.toString(),
-        DatEmi: format(new Date(), 'dd/MM/yyyy'),
-        CodCli: baixaFiltrada.codCli.toString(),
-        CodCpg: '001',
-        ObsNfv: 'Nota Não Fiscal - Baixa de Estoque',
-        Produtos: [
-          {
-            SeqIpv: 0,
-            TnsPro: baixaFiltrada.codTns.toString(),
-            FilPed: 0,
-            NumPed: 0,
-            SeqIpd: 0,
-            CodPro: produtoFiltrado.codPro,
-            CodDer: produtoFiltrado.codDer,
-            CodDep: depositoFiltrado.codDep,
-            QtdFat: this.Quantidade.toString(),
-            PreUni: produtoFiltrado.preUni.toString(),
-            ObsIpv: this.Complemento,
-            CamposUsuario: 
-              {
-                CmpUsu: 'USU_' + baixaFiltrada.tipDes.toString() ,
+          CodEmp: baixaFiltrada.codEmp,
+          CodFil: filialFiltrada.codFil,
+          CodSnf: baixaFiltrada.codSnf.toString(),
+          NumNfv: '0',
+          TipNfs: 1,
+          CodEdc: '55',
+          TnsPro: baixaFiltrada.codTns.toString(),
+          DatEmi: format(new Date(), 'dd/MM/yyyy'),
+          CodCli: baixaFiltrada.codCli.toString(),
+          CodCpg: '001',
+          ObsNfv: 'Nota Não Fiscal - Baixa de Estoque',
+          Produtos: [
+            {
+              SeqIpv: 0,
+              TnsPro: baixaFiltrada.codTns.toString(),
+              FilPed: 0,
+              NumPed: 0,
+              SeqIpd: 0,
+              CodPro: produtoFiltrado.codPro,
+              CodDer: produtoFiltrado.codDer,
+              CodDep: depositoFiltrado.codDep,
+              QtdFat: this.Quantidade.toString(),
+              PreUni: produtoFiltrado.preUni.toString(),
+              ObsIpv: this.Complemento,
+              CamposUsuario: {
+                CmpUsu: 'USU_' + baixaFiltrada.tipDes.toString(),
                 VlrUsu: baixaFiltrada.codTns.toString(),
               },
-            
-          },
-        ],
-      }
-    };
+            },
+          ],
+        },
+      };
       this.dataService.setInputs(input);
 
       this.dataService.getInputs().forEach((element) => {
@@ -182,11 +184,8 @@ export class InputComponent implements OnInit {
       // percorre o array de objetos
       // verifica se nas anteriores a este objeto se os dados gerais sao iguais
       // se forem iguais, adiciona o produto no array de produtos e exclui o objeto
-
-      
     }
   }
-
 
   selecionaDesposito() {
     let codFil = this.filial.find(
