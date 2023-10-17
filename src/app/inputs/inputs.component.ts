@@ -12,7 +12,14 @@ interface input {
   Produto: string;
   Quantidade: number;
   Complemento: string;
-  dadosGerais: dadosGerais;
+  notaFiscal: notaFiscal;
+}
+interface notaFiscal {
+  FecNot: string;
+  PrcNfv: string;
+  GerarDocumentoEletronico: string;
+  IdentificacaoSistema: string;
+  DadosGerais: dadosGerais;
 }
 interface dadosGerais {
   CodEmp: number;
@@ -84,11 +91,16 @@ export class InputComponent implements OnInit {
       this.produtos = ConsultarProduto.produtos;
       this.filial = ConsultarProduto.filial;
       this.depositos = ConsultarProduto.depositos;
-      console.log(this.produtos);
-      console.log(this.filial);
-      console.log(this.depositos);
-      console.log(ConsultarProduto);
-      console.log(this.baixa);
+      // console.log(this.produtos);
+      // console.log(this.filial);
+      // console.log(this.depositos);
+      // console.log(ConsultarProduto);
+      // console.log(this.baixa);
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Sucesso',
+        detail: 'Dados careegados com sucesso',
+      });
     } catch (error: any) {
       this.messageService.add({
         severity: 'error',
@@ -98,12 +110,12 @@ export class InputComponent implements OnInit {
     }
   }
   incluir() {
-    console.log(this.Filial);
-    console.log(this.Deposito);
-    console.log(this.tipoBaixa);
-    console.log(this.Produto);
-    console.log(this.Quantidade);
-    console.log(this.Complemento);
+    // console.log(this.Filial);
+    // console.log(this.Deposito);
+    // console.log(this.tipoBaixa);
+    // console.log(this.Produto);
+    // console.log(this.Quantidade);
+    // console.log(this.Complemento);
 
     if (
       this.Filial === '' ||
@@ -141,49 +153,51 @@ export class InputComponent implements OnInit {
         Produto: this.Produto,
         Quantidade: this.Quantidade,
         Complemento: this.Complemento,
-
-        dadosGerais: {
-          CodEmp: baixaFiltrada.codEmp,
-          CodFil: filialFiltrada.codFil,
-          CodSnf: baixaFiltrada.codSnf.toString(),
-          NumNfv: '0',
-          TipNfs: 1,
-          CodEdc: '55',
-          TnsPro: baixaFiltrada.codTns.toString(),
-          DatEmi: format(new Date(), 'dd/MM/yyyy'),
-          CodCli: baixaFiltrada.codCli.toString(),
-          CodCpg: '001',
-          ObsNfv: 'Nota Não Fiscal - Baixa de Estoque',
-          Produtos: [
-            {
-              SeqIpv: 0,
-              TnsPro: baixaFiltrada.codTns.toString(),
-              FilPed: 0,
-              NumPed: 0,
-              SeqIpd: 0,
-              CodPro: produtoFiltrado.codPro,
-              CodDer: produtoFiltrado.codDer,
-              CodDep: depositoFiltrado.codDep,
-              QtdFat: this.Quantidade.toString(),
-              PreUni: produtoFiltrado.preUni.toString(),
-              ObsIpv: this.Complemento,
-              CamposUsuario: {
-                CmpUsu: 'USU_' + baixaFiltrada.tipDes.toString(),
-                VlrUsu: baixaFiltrada.codTns.toString(),
+        notaFiscal: {
+          FecNot: '0',
+          PrcNfv: '6',
+          GerarDocumentoEletronico: '1',
+          IdentificacaoSistema: 'Nota Não Fiscal - Baixa de Estoque',
+          DadosGerais: {
+            CodEmp: baixaFiltrada.codEmp,
+            CodFil: filialFiltrada.codFil,
+            CodSnf: baixaFiltrada.codSnf.toString(),
+            NumNfv: '0',
+            TipNfs: 1,
+            CodEdc: '55',
+            TnsPro: baixaFiltrada.codTns.toString(),
+            DatEmi: format(new Date(), 'dd/MM/yyyy'),
+            CodCli: baixaFiltrada.codCli.toString(),
+            CodCpg: '001',
+            ObsNfv: 'Nota Não Fiscal - Baixa de Estoque',
+            Produtos: [
+              {
+                SeqIpv: 0,
+                TnsPro: baixaFiltrada.codTns.toString(),
+                FilPed: 0,
+                NumPed: 0,
+                SeqIpd: 0,
+                CodPro: produtoFiltrado.codPro,
+                CodDer: produtoFiltrado.codDer,
+                CodDep: depositoFiltrado.codDep,
+                QtdFat: this.Quantidade.toString(),
+                PreUni: produtoFiltrado.preUni.toString(),
+                ObsIpv: this.Complemento,
+                CamposUsuario: {
+                  CmpUsu: 'USU_' + baixaFiltrada.tipDes.toString(),
+                  VlrUsu: baixaFiltrada.codTns.toString(),
+                },
               },
-            },
-          ],
+            ],
+          },
         },
       };
       this.dataService.setInputs(input);
 
       this.dataService.getInputs().forEach((element) => {
-        console.log(element.dadosGerais);
+        console.log(element.notaFiscal);
       });
-      // colocar os mesmos produtos no
-      // percorre o array de objetos
-      // verifica se nas anteriores a este objeto se os dados gerais sao iguais
-      // se forem iguais, adiciona o produto no array de produtos e exclui o objeto
+      
     }
   }
 
@@ -196,6 +210,6 @@ export class InputComponent implements OnInit {
       (objeto: { codDep: string }) => objeto.codDep.startsWith(prefixo)
     );
     this.boolDeposito = false;
-    console.log(this.depositoFiltrado);
+    // console.log(this.depositoFiltrado);
   }
 }

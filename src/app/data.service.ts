@@ -19,4 +19,8 @@ export class DataService {
     this.sharedData = data;
   }
 
+  clearInputs() {
+    this.sharedData = [];
+  }
+
 }
