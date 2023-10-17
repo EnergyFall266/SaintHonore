@@ -32,35 +32,47 @@ export class AppComponent {
     this.dadosNota = [];
     let count = 1;
     console.log(this.dataService.getInputs());
+    let igual: boolean = false;
 
-this.dataService.getInputs().forEach((element) => {
-  console.log(element);
-  
-  console.log(element.notaFiscal.DadosGerais.CodFil);
-  
-  
-  if (this.dadosNota.length == 0) {
-    this.dadosNota.push(element.notaFiscal);
-  }
-  else {
-    this.dadosNota.forEach((element2) => {
+    this.dataService.getInputs().forEach((element) => {
+      igual = false;
+      console.log(element);
+
       console.log(element.notaFiscal.DadosGerais.CodFil);
-      console.log(element2);
-      
-      if (element.notaFiscal.DadosGerais.CodFil === element2.DadosGerais.CodFil) {
-        element2.DadosGerais.Produtos.push(element.notaFiscal.DadosGerais.Produtos.pop());
-      }
-      else {
-        this.dadosNota.push(element.notaFiscal);
-      }
-    });
-  }
-  console.log(this.dadosNota);
-  
-}
-);
-console.log(this.dadosNota);
 
+      if (this.dadosNota.length == 0) {
+        element.notaFiscal.DadosGerais.Produtos[0].SeqIpv = 1;
+        this.dadosNota.push(element.notaFiscal);
+        console.log('primeiro');
+      } else {
+        this.dadosNota.forEach((element2) => {
+          console.log(element2);
+
+          if (
+            element.notaFiscal.DadosGerais.CodFil ===
+            element2.DadosGerais.CodFil
+          ) {
+            console.log("sseq");
+            
+            console.log(element2.DadosGerais.Produtos[element2.DadosGerais.Produtos.length - 1].SeqIpv);
+            element.notaFiscal.DadosGerais.Produtos[0].SeqIpv = element2.DadosGerais.Produtos[element2.DadosGerais.Produtos.length - 1].SeqIpv + 1;
+            element2.DadosGerais.Produtos.push(
+              element.notaFiscal.DadosGerais.Produtos.pop()
+            );
+            console.log('igual');
+            igual = true;
+          }
+        });
+        if (!igual) {
+          element.notaFiscal.DadosGerais.Produtos[0].SeqIpv = 1;
+
+          this.dadosNota.push(element.notaFiscal);
+          console.log('novo');
+        }
+      }
+      console.log(this.dadosNota);
+    });
+    // console.log(this.dadosNota);
 
     this.messageService.add({
       severity: 'success',
@@ -71,7 +83,6 @@ console.log(this.dadosNota);
     // location.reload();
     // }
     // , 2000);
-
 
     // this.dataService.getInputs().forEach((element) => {
     //   this.dadosNota.push(element.dadosGerais);
@@ -84,11 +95,10 @@ console.log(this.dadosNota);
     //   });
     // });
     // console.log(this.dadosNota);
-    
-    // colocar os mesmos produtos no
-        // percorre o array de objetos
-        // verifica se ja tem uma com a mesma filial
-        // se tiver, adiciona o produto no array de produtos e exclui o objeto
-  }
 
+    // colocar os mesmos produtos no
+    // percorre o array de objetos
+    // verifica se ja tem uma com a mesma filial
+    // se tiver, adiciona o produto no array de produtos e exclui o objeto
+  }
 }
