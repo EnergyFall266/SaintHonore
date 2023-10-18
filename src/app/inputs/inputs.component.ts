@@ -74,6 +74,7 @@ export class InputComponent implements OnInit {
   depositos: any;
   depositoFiltrado: any = [];
   boolDeposito: boolean = true;
+  load: boolean = true;
 
   constructor(
     private dataService: DataService,
@@ -96,9 +97,10 @@ export class InputComponent implements OnInit {
       // console.log(this.depositos);
       // console.log(ConsultarProduto);
       // console.log(this.baixa);
+      this.load = false;
       this.messageService.add({
         severity: 'success',
-        summary: 'Sucesso',
+        summary: 'Dados Carregados',
         detail: 'Dados carregados com sucesso',
       });
       this.Titulo = 'Baixa Especial de Estoque';

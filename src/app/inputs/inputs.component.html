@@ -20,6 +20,7 @@
             [(ngModel)]="Filial"
             appendTo="body"
             (onChange)="selecionaDesposito()"
+            [disabled]="load"
           ></p-dropdown>
         </div>
       </div>
@@ -63,6 +64,7 @@
             [(ngModel)]="tipoBaixa"
             optionValue="desDes"
             appendTo="body"
+            [disabled]="load"
           ></p-dropdown>
         </div>
       </div>
@@ -85,6 +87,7 @@
             optionValue="desPro"
             [filter]="true"
             appendTo="body"
+            [disabled]="load"
           >
           </p-dropdown>
         </div>
@@ -100,6 +103,7 @@
           <p-inputNumber
             class="col-12 h-4rem w-6rem"
             [(ngModel)]="Quantidade"
+            [disabled]="load"
           ></p-inputNumber>
         </div>
       </div>
@@ -110,7 +114,7 @@
     >
       <div class="grid">
         <div class="col-12">
-          <p-button label="Incluir" (onClick)="incluir()"></p-button>
+          <p-button label="Incluir" (onClick)="incluir()" ></p-button>
         </div>
       </div>
     </div>
@@ -125,6 +129,7 @@
           pInputText
           class="w-full"
           [(ngModel)]="Complemento"
+          [disabled]="load"
         />
       </div>
     </div>
