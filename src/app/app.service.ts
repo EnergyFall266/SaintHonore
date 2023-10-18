@@ -58,4 +58,32 @@ export class AppService {
       throw error;
     }
   }
+  async gerarNota(body: any) {
+    const axios = require('axios');
+    let data = JSON.stringify({
+      body,
+    });
+    
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'https://sh.prismainformatica.com.br:8182/API/G5Rest?server=https://localhost:8182&module=sapiens&service=com.senior.g5.co.mcm.ven.notafiscal&port=GravarNotasFiscaisSaida',
+      headers: { 
+        'Content-Type': 'application/json', 
+        'Authorization': 'Bearer HLYnlpeevIloZQlLszUQ2yGhignXF42g'
+      },
+      data : data
+    };
+    try{
+    const response = await axios.request(config);
+      console.log(JSON.stringify(response.data.mensagemRetorno));
+     return response.data.mensagemRetorno, true;
+      
+    }
+  catch(error:any) {
+     throw error;
+    };
+    
+
+  }
 }

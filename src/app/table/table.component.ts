@@ -25,7 +25,11 @@ export class TableComponent {
   ngOnInit(): void {
     this.input = this.dataService.getInputs();
   }
-
+clear()
+{
+  this.input = [];
+  this.dataService.clearInputs();
+}
   excluirItem(item: any): void {
     const index = this.input.indexOf(item);
     if (index !== -1) {

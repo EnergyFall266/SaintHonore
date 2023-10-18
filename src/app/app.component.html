@@ -2,7 +2,7 @@
   <app-input></app-input>
   <app-table></app-table>
   <div class="flex justify-content-start mt-4 ml-3">
-    <p-button label="Confirmar" (onClick)="confirmacao()"></p-button>
+    <p-button [label]="labelButton" [loading]="loading" (onClick)="confirmacao()"></p-button>
   </div>
   <p-dialog header="Header" [(visible)]="mostrarOverlay" [modal]="true" [style]="{ width: '80vw' }">
     <ng-template pTemplate="header">

@@ -67,7 +67,7 @@ export class InputComponent implements OnInit {
   Produto: string = '';
   Quantidade: number = 0;
   Complemento: string = '';
-
+  Titulo: string = 'Carregando dados...';
   baixa: any;
   produtos: any;
   filial: any;
@@ -99,8 +99,9 @@ export class InputComponent implements OnInit {
       this.messageService.add({
         severity: 'success',
         summary: 'Sucesso',
-        detail: 'Dados careegados com sucesso',
+        detail: 'Dados carregados com sucesso',
       });
+      this.Titulo = 'Baixa Especial de Estoque';
     } catch (error: any) {
       this.messageService.add({
         severity: 'error',
@@ -193,11 +194,6 @@ export class InputComponent implements OnInit {
         },
       };
       this.dataService.setInputs(input);
-
-      this.dataService.getInputs().forEach((element) => {
-        console.log(element.notaFiscal);
-      });
-      
     }
   }
 
@@ -211,5 +207,14 @@ export class InputComponent implements OnInit {
     );
     this.boolDeposito = false;
     // console.log(this.depositoFiltrado);
+  }
+
+  clear() {
+    this.Filial = '';
+    this.Deposito = '';
+    this.tipoBaixa = '';
+    this.Produto = '';
+    this.Quantidade = 0;
+    this.Complemento = '';
   }
 }
