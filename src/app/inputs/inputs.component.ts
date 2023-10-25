@@ -133,7 +133,7 @@ export class InputComponent implements OnInit {
       this.messageService.add({
         severity: 'warn',
         summary: 'Atenção',
-        detail: 'Preencha todos os campos!',
+        detail: 'Preencha todos os campos obrigatórios!',
       });
     } else {
       const produtoFiltrado: any = this.produtos.find(
@@ -169,8 +169,8 @@ export class InputComponent implements OnInit {
             numNfv: '0',
             tipNfs: 1,
             codEdc: '55',
-            // tnsPro: baixaFiltrada.codTns.toString(),
-            tnsPro: '5949',
+            tnsPro: baixaFiltrada.codTns.toString(),
+            // tnsPro: '5949',
             datEmi: format(new Date(), 'dd/MM/yyyy'),
             codCli: baixaFiltrada.codCli.toString(),
             codCpg: '001',
@@ -178,8 +178,8 @@ export class InputComponent implements OnInit {
             produtos: [
               {
                 seqIpv: 0,
-                // tnsPro: baixaFiltrada.codTns.toString(),
-                tnsPro: '5949',
+                tnsPro: baixaFiltrada.codTns.toString(),
+                // tnsPro: '5949',
                 filPed: 0,
                 numPed: 0,
                 seqIpd: 0,
