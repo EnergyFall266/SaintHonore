@@ -31,6 +31,8 @@ import { AppService} from './app.service';
 import { Validate_Service } from 'src/services/Validate_Service';
 import { TableComponent } from './table/table.component';
 import { ToastModule } from 'primeng/toast';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 
 export const HttpLoaderFactory = (httpClient: HttpClient) =>
   new TranslateHttpLoader(httpClient, 'assets/i18n/');
@@ -64,6 +66,8 @@ export const HttpLoaderFactory = (httpClient: HttpClient) =>
     AppRoutingModule,
     ProgressSpinnerModule,
     FileUploadModule,
+    
+    DynamicDialogModule,
     ToastModule,
     RadioButtonModule,
     TranslateModule.forRoot({

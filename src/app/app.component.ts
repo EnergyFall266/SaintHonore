@@ -5,12 +5,13 @@ import { AppService } from './app.service';
 import { Table } from 'primeng/table';
 import { TableComponent } from './table/table.component';
 import { InputComponent } from './inputs/inputs.component';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [MessageService],
+  providers: [MessageService,DialogService],
 })
 export class AppComponent {
   mostrarOverlay: boolean = false;
@@ -19,13 +20,22 @@ export class AppComponent {
   labelButton: string = 'Confirmar';
   @ViewChild(TableComponent) table!: TableComponent;
   @ViewChild(InputComponent) input!: InputComponent;
-
+  ref: DynamicDialogRef| undefined;
   constructor(
     private dataService: DataService,
     private messageService: MessageService,
-    private appService: AppService
+    private appService: AppService,
+    private dialogService: DialogService
   ) {}
+
+  ngOnInit(): void {
+
+  }
+  
   confirmacao() {
+
+
+    
     if (this.dataService.getInputs().length == 0) {
       this.messageService.add({
         severity: 'warn',
@@ -33,10 +43,20 @@ export class AppComponent {
         detail: 'Nenhum item adicionado',
       });
     } else {
-      this.mostrarOverlay = true;
+      this.ref = this.dialogService.open(TableComponent, {
+        header: 'Tem certeza que deseja realizar a baixa destes produtos?',
+        width: '80vw',
+        contentStyle: { 'max-height': '500px', overflow: 'auto' },
+       
+    });
+      // console.log(this.dataService.getInputs());
+      
+      // this.mostrarOverlay = true;
     }
   }
   emitirNota() {
+    console.log("aaaaaa");
+    this.ref?.close();
     this.dadosNota = [];
     console.log(this.dataService.getInputs());
     let igual: boolean = false;
@@ -49,35 +69,38 @@ export class AppComponent {
       // console.log(element.notaFiscal.DadosGerais.CodFil);
 
       if (this.dadosNota.length == 0) {
-        element.notaFiscal.DadosGerais.Produtos[0].SeqIpv = 1;
+        element.notaFiscal.dadosGerais[0].produtos[0].seqIpv = 1;
         this.dadosNota.push(element.notaFiscal);
         // console.log('primeiro');
       } else {
+        console.log(this.dadosNota);
+        
         this.dadosNota.forEach((element2) => {
-          // console.log(element2);
-
+          console.log(element2);
+          for(let i = 0; i < element2.dadosGerais.length; i++){
           if (
-            element.notaFiscal.DadosGerais.CodFil ===
-            element2.DadosGerais.CodFil
+            element.notaFiscal.dadosGerais[0].codFil ===
+            element2.dadosGerais[i].codFil
           ) {
             // console.log("sseq");
 
             // console.log(element2.DadosGerais.Produtos[element2.DadosGerais.Produtos.length - 1].SeqIpv);
-            element.notaFiscal.DadosGerais.Produtos[0].SeqIpv =
-              element2.DadosGerais.Produtos[
-                element2.DadosGerais.Produtos.length - 1
-              ].SeqIpv + 1;
-            element2.DadosGerais.Produtos.push(
-              element.notaFiscal.DadosGerais.Produtos.pop()
+            element.notaFiscal.dadosGerais[0].produtos[0].seqIpv =
+              element2.dadosGerais[i].produtos[
+                element2.dadosGerais[i].produtos.length - 1
+              ].seqIpv + 1;
+            element2.dadosGerais[i].produtos.push(
+              element.notaFiscal.dadosGerais[0].produtos.pop()
             );
             // console.log('igual');
             igual = true;
           }
+        }
         });
         if (!igual) {
-          element.notaFiscal.DadosGerais.Produtos[0].SeqIpv = 1;
+          element.notaFiscal.dadosGerais[0].produtos[0].seqIpv = 1;
 
-          this.dadosNota.push(element.notaFiscal);
+          this.dadosNota[0].dadosGerais.push(element.notaFiscal.dadosGerais[0]);
           // console.log('novo');
         }
       }
@@ -91,7 +114,7 @@ export class AppComponent {
     try {
       this.loading = true;
       this.labelButton = 'Emitindo...';
-      await this.appService.gerarNota(this.dadosNota);
+      await this.appService.gerarNota(this.dadosNota[0]);
       this.loading = false;
       this.messageService.add({
         severity: 'success',
@@ -100,6 +123,7 @@ export class AppComponent {
       });
       this.labelButton = 'Confirmar';
       this.table.clear();
+      this.table.ngOnInit();
       this.input.clear();
     } catch (error) {
       this.messageService.add({

@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 import { DataService } from '../data.service';
 
+import { AppComponent } from '../app.component';
 interface input {
   Filial: string;
   Deposito: string;
@@ -15,12 +16,15 @@ interface input {
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
+
+
 })
 export class TableComponent {
   input: input[] = [];
   @Input() confirmacao: any;
+  @Input() emitirNota!: Function
 
-  constructor(private dataService: DataService) {}
+  constructor(private dataService: DataService, @Inject(AppComponent) private config:AppComponent) {}
 
   ngOnInit(): void {
     this.input = this.dataService.getInputs();
@@ -37,4 +41,8 @@ clear()
     }
     this.dataService.updateInputs(this.input);
   }
+ confirmar(){
+  this.config.emitirNota();
+
+ }
 }

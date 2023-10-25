@@ -1,5 +1,5 @@
-<div class="card ml-3 mr-3 z-0">
-  <p-table #table [value]="input" [tableStyle]="{ 'min-width': '50rem' }">
+<div class="card ml-3 mr-3 z-0 max-w-screen">
+  <p-table #table [value]="input" [tableStyle]="{ 'min-width': '50rem' }" [resizableColumns]="true">
     <ng-template pTemplate="header" >
       <tr>
         <th>Código</th>
@@ -17,8 +17,13 @@
         <td>{{ input.tipoBaixa }}</td>
         <td>{{ input.Complemento }}</td>
         <td>{{ input.Quantidade }}</td>
-        <td *ngIf="!confirmacao"><button type="button" pButton pRipple icon="pi pi-trash"  class="p-button-danger" (click)="excluirItem(input)" ></button></td>
+        <td *ngIf="confirmacao"><button type="button" pButton pRipple icon="pi pi-trash"  class="p-button-danger" (click)="excluirItem(input)" ></button></td>
       </tr>
     </ng-template>
   </p-table>
+  <div class="flex justify-content-end  " *ngIf="!confirmacao">
+    <!-- <p-button   label="Cancelar"  styleClass="p-button-text"></p-button> -->
+    <p-button  (onClick)="confirmar()" label="Confirmar" styleClass="p-button-text"></p-button>
+  </div>
+
 </div>

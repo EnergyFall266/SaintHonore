@@ -15,43 +15,43 @@ interface input {
   notaFiscal: notaFiscal;
 }
 interface notaFiscal {
-  FecNot: string;
-  PrcNfv: string;
-  GerarDocumentoEletronico: string;
-  IdentificacaoSistema: string;
-  DadosGerais: dadosGerais;
+  fecNot: string;
+  prcNfv: string;
+  gerarDocumentoEletronico: string;
+  identificacaoSistema: string;
+  dadosGerais: dadosGerais [];
 }
 interface dadosGerais {
-  CodEmp: number;
-  CodFil: number;
-  CodSnf: string;
-  NumNfv: string;
-  TipNfs: number;
-  CodEdc: string;
-  TnsPro: string;
-  DatEmi: string;
-  CodCli: string;
-  CodCpg: string;
-  ObsNfv: string;
-  Produtos: Produtos[];
+  codEmp: number;
+  codFil: number;
+  codSnf: string;
+  numNfv: string;
+  tipNfs: number;
+  codEdc: string;
+  tnsPro: string;
+  datEmi: string;
+  codCli: string;
+  codCpg: string;
+  obsNfv: string;
+  produtos: Produtos[];
 }
 interface Produtos {
-  SeqIpv: number;
-  TnsPro: string;
-  FilPed: number;
-  NumPed: number;
-  SeqIpd: number;
-  CodPro: string;
-  CodDer: string;
-  CodDep: string;
-  QtdFat: string;
-  PreUni: string;
-  ObsIpv: string;
-  CamposUsuario: CamposUsuario;
+  seqIpv: number;
+  tnsPro: string;
+  filPed: number;
+  numPed: number;
+  seqIpd: number;
+  codPro: string;
+  codDer: string;
+  codDep: string;
+  qtdFat: string;
+  preUni: string;
+  obsIpv: string;
+  camposUsuario: CamposUsuario;
 }
 interface CamposUsuario {
-  CmpUsu: string;
-  VlrUsu: string;
+  cmpUsu: string;
+  vlrUsu: string;
 }
 
 @Component({
@@ -85,6 +85,7 @@ export class InputComponent implements OnInit {
   ngOnInit(): void {
     this.importa();
   }
+  
   async importa() {
     try {
       this.baixa = await this.appService.loadTipoDespesas();
@@ -157,46 +158,53 @@ export class InputComponent implements OnInit {
         Quantidade: this.Quantidade,
         Complemento: this.Complemento,
         notaFiscal: {
-          FecNot: '0',
-          PrcNfv: '6',
-          GerarDocumentoEletronico: '1',
-          IdentificacaoSistema: 'Nota Não Fiscal - Baixa de Estoque',
-          DadosGerais: {
-            CodEmp: baixaFiltrada.codEmp,
-            CodFil: filialFiltrada.codFil,
-            CodSnf: baixaFiltrada.codSnf.toString(),
-            NumNfv: '0',
-            TipNfs: 1,
-            CodEdc: '55',
-            TnsPro: baixaFiltrada.codTns.toString(),
-            DatEmi: format(new Date(), 'dd/MM/yyyy'),
-            CodCli: baixaFiltrada.codCli.toString(),
-            CodCpg: '001',
-            ObsNfv: 'Nota Não Fiscal - Baixa de Estoque',
-            Produtos: [
+          fecNot: '0',
+          prcNfv: '6',
+          gerarDocumentoEletronico: '1',
+          identificacaoSistema: 'Nota Não Fiscal - Baixa de Estoque',
+          dadosGerais: [{
+            codEmp: baixaFiltrada.codEmp,
+            codFil: filialFiltrada.codFil,
+            codSnf: baixaFiltrada.codSnf.toString(),
+            numNfv: '0',
+            tipNfs: 1,
+            codEdc: '55',
+            // tnsPro: baixaFiltrada.codTns.toString(),
+            tnsPro: '5949',
+            datEmi: format(new Date(), 'dd/MM/yyyy'),
+            codCli: baixaFiltrada.codCli.toString(),
+            codCpg: '001',
+            obsNfv: 'Nota Não Fiscal - Baixa de Estoque',
+            produtos: [
               {
-                SeqIpv: 0,
-                TnsPro: baixaFiltrada.codTns.toString(),
-                FilPed: 0,
-                NumPed: 0,
-                SeqIpd: 0,
-                CodPro: produtoFiltrado.codPro,
-                CodDer: produtoFiltrado.codDer,
-                CodDep: depositoFiltrado.codDep,
-                QtdFat: this.Quantidade.toString(),
-                PreUni: produtoFiltrado.preUni.toString(),
-                ObsIpv: this.Complemento,
-                CamposUsuario: {
-                  CmpUsu: 'USU_' + baixaFiltrada.tipDes.toString(),
-                  VlrUsu: baixaFiltrada.codTns.toString(),
+                seqIpv: 0,
+                // tnsPro: baixaFiltrada.codTns.toString(),
+                tnsPro: '5949',
+                filPed: 0,
+                numPed: 0,
+                seqIpd: 0,
+                codPro: produtoFiltrado.codPro,
+                codDer: produtoFiltrado.codDer,
+                codDep: depositoFiltrado.codDep,
+                qtdFat: this.Quantidade.toString(),
+                preUni: produtoFiltrado.preUni.toString(),
+                obsIpv: this.Complemento,
+                camposUsuario: {
+                  cmpUsu: 'USU_TipDes',
+                  vlrUsu: baixaFiltrada.tipDes.toString(),
                 },
               },
             ],
           },
+        ],
         },
       };
+      console.log(input);
+      
       this.dataService.setInputs(input);
     }
+    console.log(this.dataService.getInputs());
+    
   }
 
   selecionaDesposito() {
@@ -204,7 +212,7 @@ export class InputComponent implements OnInit {
       (objeto: { nomFil: string }) => objeto.nomFil === this.Filial
     );
     let prefixo = 'D0' + codFil.codFil;
-    this.depositoFiltrado = this.depositos.filter(
+    this.depositoFiltrado = this.depositos.filter( 
       (objeto: { codDep: string }) => objeto.codDep.startsWith(prefixo)
     );
     this.boolDeposito = false;

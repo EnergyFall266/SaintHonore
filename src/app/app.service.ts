@@ -19,7 +19,7 @@ export class AppService {
       url: 'https://sh.prismainformatica.com.br:8181/SXI-API/G5Rest?server=https://localhost:8181&module=sapiens&service=com.prisma.dadosgerais&port=TipoDespesa',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer HLYnlpeevIloZQlLszUQ2yGhignXF42g',
+        Authorization: 'Bearer ZWBznZ2qz6nZ4Nf27ye4ytvEAPXacOVA',
       },
       data: data,
     };
@@ -45,7 +45,7 @@ export class AppService {
       url: 'https://sh.prismainformatica.com.br:8181/SXI-API/G5Rest?server=https://localhost:8181&module=sapiens&service=com.prisma.dadosgerais&port=ConsultarProduto',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer HLYnlpeevIloZQlLszUQ2yGhignXF42g',
+        Authorization: 'Bearer ZWBznZ2qz6nZ4Nf27ye4ytvEAPXacOVA',
       },
       data: data,
     };
@@ -60,9 +60,9 @@ export class AppService {
   }
   async gerarNota(body: any) {
     const axios = require('axios');
-    let data = JSON.stringify({
+    let data = JSON.stringify(
       body,
-    });
+    );
     
     let config = {
       method: 'post',
@@ -70,7 +70,7 @@ export class AppService {
       url: 'https://sh.prismainformatica.com.br:8182/API/G5Rest?server=https://localhost:8182&module=sapiens&service=com.senior.g5.co.mcm.ven.notafiscal&port=GravarNotasFiscaisSaida',
       headers: { 
         'Content-Type': 'application/json', 
-        'Authorization': 'Bearer HLYnlpeevIloZQlLszUQ2yGhignXF42g'
+        'Authorization': 'Bearer ZWBznZ2qz6nZ4Nf27ye4ytvEAPXacOVA'
       },
       data : data
     };
