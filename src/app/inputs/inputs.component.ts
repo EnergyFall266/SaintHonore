@@ -19,7 +19,7 @@ interface notaFiscal {
   prcNfv: string;
   gerarDocumentoEletronico: string;
   identificacaoSistema: string;
-  dadosGerais: dadosGerais [];
+  dadosGerais: dadosGerais[];
 }
 interface dadosGerais {
   codEmp: number;
@@ -85,7 +85,7 @@ export class InputComponent implements OnInit {
   ngOnInit(): void {
     this.importa();
   }
-  
+
   async importa() {
     try {
       this.baixa = await this.appService.loadTipoDespesas();
@@ -93,11 +93,7 @@ export class InputComponent implements OnInit {
       this.produtos = ConsultarProduto.produtos;
       this.filial = ConsultarProduto.filial;
       this.depositos = ConsultarProduto.depositos;
-      // console.log(this.produtos);
-      // console.log(this.filial);
-      // console.log(this.depositos);
-      // console.log(ConsultarProduto);
-      // console.log(this.baixa);
+
       this.load = false;
       this.messageService.add({
         severity: 'success',
@@ -114,13 +110,6 @@ export class InputComponent implements OnInit {
     }
   }
   incluir() {
-    // console.log(this.Filial);
-    // console.log(this.Deposito);
-    // console.log(this.tipoBaixa);
-    // console.log(this.Produto);
-    // console.log(this.Quantidade);
-    // console.log(this.Complemento);
-
     if (
       this.Filial === '' ||
       this.Deposito === '' ||
@@ -162,49 +151,48 @@ export class InputComponent implements OnInit {
           prcNfv: '6',
           gerarDocumentoEletronico: '1',
           identificacaoSistema: 'Nota Não Fiscal - Baixa de Estoque',
-          dadosGerais: [{
-            codEmp: baixaFiltrada.codEmp,
-            codFil: filialFiltrada.codFil,
-            codSnf: baixaFiltrada.codSnf.toString(),
-            numNfv: '0',
-            tipNfs: 1,
-            codEdc: '55',
-            tnsPro: baixaFiltrada.codTns.toString(),
-            // tnsPro: '5949',
-            datEmi: format(new Date(), 'dd/MM/yyyy'),
-            codCli: baixaFiltrada.codCli.toString(),
-            codCpg: '001',
-            obsNfv: 'Nota Não Fiscal - Baixa de Estoque',
-            produtos: [
-              {
-                seqIpv: 0,
-                tnsPro: baixaFiltrada.codTns.toString(),
-                // tnsPro: '5949',
-                filPed: 0,
-                numPed: 0,
-                seqIpd: 0,
-                codPro: produtoFiltrado.codPro,
-                codDer: produtoFiltrado.codDer,
-                codDep: depositoFiltrado.codDep,
-                qtdFat: this.Quantidade.toString(),
-                preUni: produtoFiltrado.preUni.toString(),
-                obsIpv: this.Complemento,
-                camposUsuario: {
-                  cmpUsu: 'USU_TipDes',
-                  vlrUsu: baixaFiltrada.tipDes.toString(),
+          dadosGerais: [
+            {
+              codEmp: baixaFiltrada.codEmp,
+              codFil: filialFiltrada.codFil,
+              codSnf: baixaFiltrada.codSnf.toString(),
+              numNfv: '0',
+              tipNfs: 1,
+              codEdc: '55',
+              tnsPro: baixaFiltrada.codTns.toString(),
+              datEmi: format(new Date(), 'dd/MM/yyyy'),
+              codCli: baixaFiltrada.codCli.toString(),
+              codCpg: '001',
+              obsNfv: 'Nota Não Fiscal - Baixa de Estoque',
+              produtos: [
+                {
+                  seqIpv: 0,
+                  tnsPro: baixaFiltrada.codTns.toString(),
+                  filPed: 0,
+                  numPed: 0,
+                  seqIpd: 0,
+                  codPro: produtoFiltrado.codPro,
+                  codDer: produtoFiltrado.codDer,
+                  codDep: depositoFiltrado.codDep,
+                  qtdFat: this.Quantidade.toString(),
+                  preUni:
+                    produtoFiltrado.preUni.toString() === '0'
+                      ? '1'
+                      : produtoFiltrado.preUni.toString(),
+                  obsIpv: this.Complemento,
+                  camposUsuario: {
+                    cmpUsu: 'USU_TipDes',
+                    vlrUsu: baixaFiltrada.tipDes.toString(),
+                  },
                 },
-              },
-            ],
-          },
-        ],
+              ],
+            },
+          ],
         },
       };
-      console.log(input);
-      
+
       this.dataService.setInputs(input);
     }
-    console.log(this.dataService.getInputs());
-    
   }
 
   selecionaDesposito() {
@@ -212,11 +200,10 @@ export class InputComponent implements OnInit {
       (objeto: { nomFil: string }) => objeto.nomFil === this.Filial
     );
     let prefixo = 'D0' + codFil.codFil;
-    this.depositoFiltrado = this.depositos.filter( 
+    this.depositoFiltrado = this.depositos.filter(
       (objeto: { codDep: string }) => objeto.codDep.startsWith(prefixo)
     );
     this.boolDeposito = false;
-    // console.log(this.depositoFiltrado);
   }
 
   clear() {

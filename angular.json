@@ -23,7 +23,7 @@
               "angular-slickgrid",
               "stream"
             ],
-            "outputPath": "dist/projeto-padrao",
+            "outputPath": "dist/baixa-estoque",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",

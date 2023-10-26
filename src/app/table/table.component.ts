@@ -16,24 +16,24 @@ interface input {
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
-
-
 })
 export class TableComponent {
   input: input[] = [];
   @Input() confirmacao: any;
-  @Input() emitirNota!: Function
+  @Input() emitirNota!: Function;
 
-  constructor(private dataService: DataService, @Inject(AppComponent) private config:AppComponent) {}
+  constructor(
+    private dataService: DataService,
+    @Inject(AppComponent) private config: AppComponent
+  ) {}
 
   ngOnInit(): void {
     this.input = this.dataService.getInputs();
   }
-clear()
-{
-  this.input = [];
-  this.dataService.clearInputs();
-}
+  clear() {
+    this.input = [];
+    this.dataService.clearInputs();
+  }
   excluirItem(item: any): void {
     const index = this.input.indexOf(item);
     if (index !== -1) {
@@ -41,8 +41,7 @@ clear()
     }
     this.dataService.updateInputs(this.input);
   }
- confirmar(){
-  this.config.emitirNota();
-
- }
+  confirmar() {
+    this.config.emitirNota();
+  }
 }
