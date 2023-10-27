@@ -1,11 +1,37 @@
 import { Injectable } from '@angular/core';
 import { th } from 'date-fns/locale';
+import { Subject } from 'rxjs';
+import { VP_BPM } from 'src/beans/VP_BPM';
+import { user } from '@seniorsistemas/senior-platform-data';
+import { ws_beans_header } from 'src/beans/WS_Beans';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AppService {
-  constructor() {}
+  private capturaAcao = new Subject<string>();
+  acao$ = this.capturaAcao.asObservable();
+  private token: any;
+
+  public vp: VP_BPM = new VP_BPM();
+  usuario: any;
+  constructor() {
+    user
+      .getToken()
+      .then((retorno) => {
+        this.token = retorno;
+        
+        const user = this.token.username.split('@');
+        this.usuario = user[0];
+        this.capturaAcao.next(this.token.access_token);
+        
+      })
+      .catch((error) => {
+        alert(
+          'Não foi possível obter token. Verifique se a tela está sendo acessada pela plataforma Senior X.'
+        );
+      });
+  }
 
   async loadTipoDespesas() {
     const axios = require('axios');
@@ -17,9 +43,9 @@ export class AppService {
       method: 'post',
       maxBodyLength: Infinity,
       url: 'https://sh.prismainformatica.com.br:8181/SXI-API/G5Rest?server=https://localhost:8181&module=sapiens&service=com.prisma.dadosgerais&port=TipoDespesa',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ZWBznZ2qz6nZ4Nf27ye4ytvEAPXacOVA',
+      headers: { 
+        'Content-Type': 'application/json', 
+        'Authorization': 'bearer ' + this.token.access_token
       },
       data: data,
     };
@@ -43,9 +69,9 @@ export class AppService {
       method: 'post',
       maxBodyLength: Infinity,
       url: 'https://sh.prismainformatica.com.br:8181/SXI-API/G5Rest?server=https://localhost:8181&module=sapiens&service=com.prisma.dadosgerais&port=ConsultarProduto',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ZWBznZ2qz6nZ4Nf27ye4ytvEAPXacOVA',
+      headers: { 
+        'Content-Type': 'application/json', 
+        'Authorization': 'bearer ' + this.token.access_token
       },
       data: data,
     };
@@ -58,7 +84,7 @@ export class AppService {
       throw error;
     }
   }
-  async gerarNota(body: any) {
+  async gerarNota(body: any,) {
     const axios = require('axios');
     let data = JSON.stringify(body);
 
@@ -66,9 +92,9 @@ export class AppService {
       method: 'post',
       maxBodyLength: Infinity,
       url: 'https://sh.prismainformatica.com.br:8181/API/G5Rest?server=https://localhost:8181&module=sapiens&service=com.senior.g5.co.mcm.ven.notafiscal&port=GravarNotasFiscaisSaida_13',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ZWBznZ2qz6nZ4Nf27ye4ytvEAPXacOVA',
+      headers: { 
+        'Content-Type': 'application/json', 
+        'Authorization': 'bearer ' + this.token.access_token
       },
       data: data,
     };

@@ -3,6 +3,8 @@ import { DataService } from '../data.service';
 import { MessageService } from 'primeng/api';
 import { AppService } from '../app.service';
 import { format } from 'date-fns';
+import { VP_BPM } from 'src/beans/VP_BPM';
+import { ws_beans_header } from 'src/beans/WS_Beans';
 
 interface input {
   Filial: string;
@@ -61,6 +63,7 @@ interface CamposUsuario {
   providers: [MessageService],
 })
 export class InputComponent implements OnInit {
+  @Input() vp!: VP_BPM
   Filial: string = '';
   Deposito: string = '';
   tipoBaixa: string = '';
@@ -80,10 +83,20 @@ export class InputComponent implements OnInit {
     private dataService: DataService,
     private messageService: MessageService,
     private appService: AppService
-  ) {}
+  ) {
+    this.appService.acao$.subscribe((retorno) => {
+      if (retorno) {
+        this.vp.token = retorno;
+        this.importa();
+      } else {
+        this.messageService.clear();
+        this.messageService.add({severity: 'error', summary: 'Erro', detail: 'Não foi possivel obter o usuário Token' });
+      }
+    });
+  }
 
   ngOnInit(): void {
-    this.importa();
+    
   }
 
   async importa() {

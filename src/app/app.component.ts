@@ -1,10 +1,11 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { DataService } from './data.service';
 import { AppService } from './app.service';
 import { TableComponent } from './table/table.component';
 import { InputComponent } from './inputs/inputs.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { VP_BPM } from 'src/beans/VP_BPM';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
   providers: [MessageService, DialogService],
 })
 export class AppComponent {
+  public vp: VP_BPM = new VP_BPM();
   mostrarOverlay: boolean = false;
   dadosNota: any[] = [];
   loading: boolean = false;
