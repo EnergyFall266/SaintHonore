@@ -33,7 +33,7 @@ import { TableComponent } from './table/table.component';
 import { ToastModule } from 'primeng/toast';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
-
+import { ListboxModule } from 'primeng/listbox';
 export const HttpLoaderFactory = (httpClient: HttpClient) =>
   new TranslateHttpLoader(httpClient, 'assets/i18n/');
 
@@ -66,7 +66,7 @@ export const HttpLoaderFactory = (httpClient: HttpClient) =>
     AppRoutingModule,
     ProgressSpinnerModule,
     FileUploadModule,
-    
+    ListboxModule,
     DynamicDialogModule,
     ToastModule,
     RadioButtonModule,

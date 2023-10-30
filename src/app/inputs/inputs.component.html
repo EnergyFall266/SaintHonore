@@ -69,13 +69,24 @@
     </div>
 
     <div class="col-4 min-w-max">
-      <div class="grid w-30rem">
+      <div class="grid ">
         <div class="col-12 p-0 mb-3 ml-2 -mr-2">
           <span class="font-semibold -mr-2">Produto*</span>
         </div>
-        <div class="col-12 p-0">
-          <input id="disabled-input" type="text" pInputText [disabled]="true" [(ngModel)]="Produto" />
-          <p-dropdown
+        <div class="col-12 p-0 flex justify-content-between">
+          <input id="disabled-input" type="text" pInputText [disabled]="true" class="w-8" [(ngModel)]="Produto" />
+          <p-button (click)="selecionaProduto()"  label="Selecionar"></p-button>
+          <p-dialog header="Header" [(visible)]="visible" [style]="{width: '50vw'}">
+            <ng-template pTemplate="header">
+              <span class="text-xl font-bold">Selecione um produto</span>
+          </ng-template>
+          <p-listbox [options]="produtos" [(ngModel)]="Produto" (click)="visible = false" optionValue="desPro" optionLabel="desPro" [filter]="true" [style]="{'width':'w-full'}"></p-listbox>
+          
+            <div class="card flex justify-content-center">
+              
+          </div>
+        </p-dialog>
+          <!-- <p-dropdown
             class="w-12"
             [styleClass]="'w-12'"
             [panelStyleClass]="'col-12'"
@@ -87,7 +98,7 @@
             [filter]="true"
             appendTo="body"
           >
-          </p-dropdown>
+          </p-dropdown> -->
         </div>
       </div>
     </div>

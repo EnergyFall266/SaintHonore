@@ -7,21 +7,21 @@
   >
     <ng-template pTemplate="header">
       <tr>
-        <th>Código</th>
-        <th>Produto</th>
-        <th>Tipo</th>
-        <th>Complemento</th>
-        <th>Quantidade</th>
+        <th class="text-center">Código</th>
+        <th class="text-center">Produto</th>
+        <th class="text-center">Tipo</th>
+        <th class="text-center">Complemento</th>
+        <th class="text-center">Quantidade</th>
         <th></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-input>
       <tr>
-        <td>{{ input.codigo }}</td>
-        <td>{{ input.Produto }}</td>
-        <td>{{ input.tipoBaixa }}</td>
-        <td>{{ input.Complemento }}</td>
-        <td>{{ input.Quantidade }}</td>
+        <td class="text-center">{{ input.codigo }}</td>
+        <td class="text-center">{{ input.Produto }}</td>
+        <td class="text-center">{{ input.tipoBaixa }}</td>
+        <td class="text-justify">{{ input.Complemento }}</td>
+        <td class="text-center">{{ input.Quantidade }}</td>
         <td *ngIf="confirmacao">
           <button
             type="button"

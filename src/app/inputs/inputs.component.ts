@@ -63,7 +63,7 @@ interface CamposUsuario {
   providers: [MessageService],
 })
 export class InputComponent implements OnInit {
-  @Input() vp!: VP_BPM
+  @Input() vp!: VP_BPM;
   Filial: string = '';
   Deposito: string = '';
   tipoBaixa: string = '';
@@ -76,7 +76,7 @@ export class InputComponent implements OnInit {
   depositos: any;
   depositoFiltrado: any = [];
   boolDeposito: boolean = true;
-
+  visible: boolean = false;
 
   constructor(
     private dataService: DataService,
@@ -89,14 +89,16 @@ export class InputComponent implements OnInit {
         this.importa();
       } else {
         this.messageService.clear();
-        this.messageService.add({severity: 'error', summary: 'Erro', detail: 'Não foi possivel obter o usuário Token' });
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erro',
+          detail: 'Não foi possivel obter o usuário Token',
+        });
       }
     });
   }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
   async importa() {
     try {
@@ -224,5 +226,13 @@ export class InputComponent implements OnInit {
     this.Produto = '';
     this.Quantidade = 0;
     this.Complemento = '';
+  }
+
+  selecionaProduto() {
+    this.visible = true;
+  }
+  show(){
+    console.log(this.Produto);
+    
   }
 }
