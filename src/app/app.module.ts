@@ -27,7 +27,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { FileUploadModule } from 'primeng/fileupload';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputComponent } from './inputs/inputs.component';
-import { AppService} from './app.service';
+import { AppService} from '../services/app.service';
 import { Validate_Service } from 'src/services/Validate_Service';
 import { TableComponent } from './table/table.component';
 import { ToastModule } from 'primeng/toast';

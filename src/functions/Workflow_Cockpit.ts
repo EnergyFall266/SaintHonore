@@ -2,7 +2,7 @@ import { ResponseLoadData, VP_BPM } from 'src/beans/VP_BPM';
 import { Info } from 'src/beans/Workflow';
 import { ws_beans_header } from 'src/beans/WS_Beans';
 import { environment } from 'src/environments/environment';
-import {AnexoService} from '../app/app.service'
+import {AnexoService} from '../services/app.service'
 import { getFormPresentation } from './Form_Presentation';
 import getVP from './Get_VP_BPM';
 

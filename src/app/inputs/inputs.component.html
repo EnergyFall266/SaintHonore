@@ -1,14 +1,14 @@
 <div class="grid overflow-x-hidden pb-2">
   <div class="col-12 bg-blue-100 pl-5 mb-4 flex flex-wrap pb-0">
-    <h2>{{ Titulo }}</h2>
+    <h2>Baixa Especial de Estoque</h2>
   </div>
-  <div class="grid ml-3 w-screen flex justify-content-evenly mr-2">
+  <div class="grid ml-3 w-screen flex justify-content-evenly mr-2 p-0">
     <div class="col-1 min-w-max w-1rem">
-      <div class="grid w-14rem">
+      <div class="grid w-14rem p-0">
         <div class="col-12 py-0 mb-3 ml-2 mr-3">
           <span class="font-semibold -mr-2">Filial*</span>
         </div>
-        <div class="col-12 py-0 flex justify-content-center">
+        <div class="col-12  flex justify-content-center p-0">
           <p-dropdown
             class="w-12"
             [styleClass]="'w-12'"
@@ -20,7 +20,6 @@
             [(ngModel)]="Filial"
             appendTo="body"
             (onChange)="selecionaDesposito()"
-            [disabled]="load"
           ></p-dropdown>
         </div>
       </div>
@@ -28,10 +27,10 @@
 
     <div class="col-1 min-w-max w-1">
       <div class="grid w-14rem">
-        <div class="col-12 py-0 mb-3 ml-2 -mr-3">
+        <div class="col-12 p-0 mb-3 ml-2 -mr-3">
           <span class="font-semibold -mr-2">Depósito*</span>
         </div>
-        <div class="col-12 py-0 flex justify-content-center">
+        <div class="col-12 p-0 flex justify-content-center">
           <p-dropdown
             class="w-12"
             [styleClass]="'w-12'"
@@ -50,10 +49,10 @@
 
     <div class="col-1 min-w-max w-1">
       <div class="grid w-14rem">
-        <div class="col-12 py-0 mb-3 ml-2 -mr-6">
+        <div class="col-12 p-0 mb-3 ml-2 -mr-6">
           <span class="font-semibold -mr-2">Tipo de Baixa*</span>
         </div>
-        <div class="col-12 py-0">
+        <div class="col-12 p-0">
           <p-dropdown
             class="w-12"
             [styleClass]="'w-12 '"
@@ -64,7 +63,6 @@
             [(ngModel)]="tipoBaixa"
             optionValue="desDes"
             appendTo="body"
-            [disabled]="load"
           ></p-dropdown>
         </div>
       </div>
@@ -72,10 +70,11 @@
 
     <div class="col-4 min-w-max">
       <div class="grid w-30rem">
-        <div class="col-12 py-0 mb-3 ml-2 -mr-2">
+        <div class="col-12 p-0 mb-3 ml-2 -mr-2">
           <span class="font-semibold -mr-2">Produto*</span>
         </div>
-        <div class="col-12 py-0">
+        <div class="col-12 p-0">
+          <input id="disabled-input" type="text" pInputText [disabled]="true" [(ngModel)]="Produto" />
           <p-dropdown
             class="w-12"
             [styleClass]="'w-12'"
@@ -87,7 +86,6 @@
             optionValue="desPro"
             [filter]="true"
             appendTo="body"
-            [disabled]="load"
           >
           </p-dropdown>
         </div>
@@ -96,14 +94,13 @@
 
     <div class="col-1 min-w-max">
       <div class="grid">
-        <div class="col-12 py-0 mb-2 ml-2 flex justify-content-center">
+        <div class="col-12 p-0 mb-2 ml-2 flex justify-content-center">
           <span class="font-semibold -mr-2">Quantidade*</span>
         </div>
-        <div class="col-12 py-0 flex justify-content-center">
+        <div class="col-12 p-0 flex justify-content-center">
           <p-inputNumber
             class="col-12 h-4rem w-6rem"
             [(ngModel)]="Quantidade"
-            [disabled]="load"
           ></p-inputNumber>
         </div>
       </div>
@@ -113,7 +110,7 @@
       class="col-1 flex align-items-center justify-content-center mt-4 mr-3 min-w-max"
     >
       <div class="grid">
-        <div class="col-12">
+        <div class="col-12 p-0">
           <p-button label="Incluir" (onClick)="incluir()"></p-button>
         </div>
       </div>
@@ -129,7 +126,6 @@
           pInputText
           class="w-full"
           [(ngModel)]="Complemento"
-          [disabled]="load"
         />
       </div>
     </div>

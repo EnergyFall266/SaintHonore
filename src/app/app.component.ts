@@ -1,7 +1,7 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { DataService } from './data.service';
-import { AppService } from './app.service';
+import { DataService } from '../services/data.service';
+import { AppService } from '../services/app.service';
 import { TableComponent } from './table/table.component';
 import { InputComponent } from './inputs/inputs.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -22,12 +22,15 @@ export class AppComponent {
   @ViewChild(TableComponent) table!: TableComponent;
   @ViewChild(InputComponent) input!: InputComponent;
   ref: DynamicDialogRef | undefined;
+
   constructor(
     private dataService: DataService,
     private messageService: MessageService,
     private appService: AppService,
     private dialogService: DialogService
-  ) {}
+  ) {
+  
+  }
 
   ngOnInit(): void {}
 
@@ -91,6 +94,7 @@ export class AppComponent {
   //envia os dados da nota para o servidor e limpa a tela
   async request() {
     try {
+      this.vp.overlay = true;
       this.loading = true;
       this.labelButton = 'Emitindo...';
       await this.appService.gerarNota(this.dadosNota[0]);
@@ -101,6 +105,7 @@ export class AppComponent {
         detail: 'Nota emitida com sucesso',
       });
       this.labelButton = 'Confirmar';
+      this.vp.overlay = false;
       this.table.clear();
       this.table.ngOnInit();
       this.input.clear();

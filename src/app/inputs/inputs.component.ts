@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DataService } from '../data.service';
+import { DataService } from '../../services/data.service';
 import { MessageService } from 'primeng/api';
-import { AppService } from '../app.service';
+import { AppService } from '../../services/app.service';
 import { format } from 'date-fns';
 import { VP_BPM } from 'src/beans/VP_BPM';
 import { ws_beans_header } from 'src/beans/WS_Beans';
@@ -70,14 +70,13 @@ export class InputComponent implements OnInit {
   Produto: string = '';
   Quantidade: number = 0;
   Complemento: string = '';
-  Titulo: string = 'Carregando dados...';
   baixa: any;
   produtos: any;
   filial: any;
   depositos: any;
   depositoFiltrado: any = [];
   boolDeposito: boolean = true;
-  load: boolean = true;
+
 
   constructor(
     private dataService: DataService,
@@ -107,13 +106,12 @@ export class InputComponent implements OnInit {
       this.filial = ConsultarProduto.filial;
       this.depositos = ConsultarProduto.depositos;
 
-      this.load = false;
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Dados Carregados',
-        detail: 'Dados carregados com sucesso',
-      });
-      this.Titulo = 'Baixa Especial de Estoque';
+      this.vp.overlay = false;
+      // this.messageService.add({
+      //   severity: 'success',
+      //   summary: 'Dados Carregados',
+      //   detail: 'Dados carregados com sucesso',
+      // });
     } catch (error: any) {
       this.messageService.add({
         severity: 'error',

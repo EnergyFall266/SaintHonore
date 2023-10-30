@@ -1,6 +1,8 @@
 <div>
   <app-input [vp]="vp"></app-input>
-  <app-table [confirmacao]="true"></app-table>
+  <div class="grid">
+    <app-table class="col-12" [confirmacao]="true"></app-table>
+  </div>
   <div class="flex justify-content-start mt-4 ml-3">
     <p-button
       [label]="labelButton"
@@ -10,4 +12,7 @@
   </div>
 
   <p-toast></p-toast>
+</div>
+<div class="progress-spinner-parent" *ngIf="this.vp.overlay">
+  <p-progressSpinner class="progress-spinner"></p-progressSpinner>
 </div>
