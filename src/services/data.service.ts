@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class DataService {
   private sharedData: any[] = [];
-
+  //usado pra passar os dados entre os componentes
   constructor() {}
 
   setInputs(data: any) {

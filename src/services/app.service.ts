@@ -16,15 +16,15 @@ export class AppService {
   public vp: VP_BPM = new VP_BPM();
   usuario: any;
   constructor() {
+    //pegar o token do usuário
     user
       .getToken()
       .then((retorno) => {
         this.token = retorno;
-        
+
         const user = this.token.username.split('@');
         this.usuario = user[0];
         this.capturaAcao.next(this.token.access_token);
-        
       })
       .catch((error) => {
         alert(
@@ -43,9 +43,9 @@ export class AppService {
       method: 'post',
       maxBodyLength: Infinity,
       url: 'https://sh.prismainformatica.com.br:8181/SXI-API/G5Rest?server=https://localhost:8181&module=sapiens&service=com.prisma.dadosgerais&port=TipoDespesa',
-      headers: { 
-        'Content-Type': 'application/json', 
-        'Authorization': 'bearer ' + this.token.access_token
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'bearer ' + this.token.access_token,
       },
       data: data,
     };
@@ -69,9 +69,9 @@ export class AppService {
       method: 'post',
       maxBodyLength: Infinity,
       url: 'https://sh.prismainformatica.com.br:8181/SXI-API/G5Rest?server=https://localhost:8181&module=sapiens&service=com.prisma.dadosgerais&port=ConsultarProduto',
-      headers: { 
-        'Content-Type': 'application/json', 
-        'Authorization': 'bearer ' + this.token.access_token
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'bearer ' + this.token.access_token,
       },
       data: data,
     };
@@ -84,7 +84,7 @@ export class AppService {
       throw error;
     }
   }
-  async gerarNota(body: any,) {
+  async gerarNota(body: any) {
     const axios = require('axios');
     let data = JSON.stringify(body);
 
@@ -92,9 +92,9 @@ export class AppService {
       method: 'post',
       maxBodyLength: Infinity,
       url: 'https://sh.prismainformatica.com.br:8182/API/G5Rest?server=https://localhost:8182&module=sapiens&service=com.senior.g5.co.mcm.ven.notafiscal&port=GravarNotasFiscaisSaida_13',
-      headers: { 
-        'Content-Type': 'application/json', 
-        'Authorization': 'bearer ' + this.token.access_token
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'bearer ' + this.token.access_token,
       },
       data: data,
     };

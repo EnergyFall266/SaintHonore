@@ -28,9 +28,7 @@ export class AppComponent {
     private messageService: MessageService,
     private appService: AppService,
     private dialogService: DialogService
-  ) {
-  
-  }
+  ) {}
 
   ngOnInit(): void {}
 
@@ -42,6 +40,7 @@ export class AppComponent {
         detail: 'Nenhum item adicionado',
       });
     } else {
+      //abre o dialogo de confirmação com a tebela de produtos
       this.ref = this.dialogService.open(TableComponent, {
         header: 'Tem certeza que deseja realizar a baixa destes produtos?',
         width: '80vw',
@@ -62,7 +61,6 @@ export class AppComponent {
         element.notaFiscal.dadosGerais[0].produtos[0].seqIpv = 1;
         this.dadosNota.push(element.notaFiscal);
       } else {
-
         this.dadosNota.forEach((element2) => {
           for (let i = 0; i < element2.dadosGerais.length; i++) {
             if (

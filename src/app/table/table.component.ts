@@ -35,6 +35,7 @@ export class TableComponent {
     this.dataService.clearInputs();
   }
   excluirItem(item: any): void {
+    //exlui a linha da tabela
     const index = this.input.indexOf(item);
     if (index !== -1) {
       this.input.splice(index, 1);
@@ -42,6 +43,7 @@ export class TableComponent {
     this.dataService.updateInputs(this.input);
   }
   confirmar() {
+    //chama a função de emitir nota do componente pai
     this.config.emitirNota();
   }
 }

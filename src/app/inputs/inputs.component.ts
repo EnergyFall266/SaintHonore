@@ -1,10 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { MessageService } from 'primeng/api';
 import { AppService } from '../../services/app.service';
 import { format } from 'date-fns';
 import { VP_BPM } from 'src/beans/VP_BPM';
 import { ws_beans_header } from 'src/beans/WS_Beans';
+import { Table } from 'primeng/table';
 
 interface input {
   Filial: string;
@@ -56,13 +57,14 @@ interface CamposUsuario {
   vlrUsu: string;
 }
 
+
 @Component({
   selector: 'app-input',
   templateUrl: './inputs.component.html',
   styleUrls: ['./inputs.component.scss'],
   providers: [MessageService],
 })
-export class InputComponent implements OnInit {
+export class InputComponent {
   @Input() vp!: VP_BPM;
   Filial: string = '';
   Deposito: string = '';
@@ -77,12 +79,17 @@ export class InputComponent implements OnInit {
   depositoFiltrado: any = [];
   boolDeposito: boolean = true;
   visible: boolean = false;
+  @ViewChild('table') table: Table | undefined;
 
+  first: number = 0;
+
+    rows: number = 10;
   constructor(
     private dataService: DataService,
     private messageService: MessageService,
     private appService: AppService
   ) {
+    //pega o token do usuario
     this.appService.acao$.subscribe((retorno) => {
       if (retorno) {
         this.vp.token = retorno;
@@ -98,8 +105,6 @@ export class InputComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
-
   async importa() {
     try {
       this.baixa = await this.appService.loadTipoDespesas();
@@ -107,13 +112,7 @@ export class InputComponent implements OnInit {
       this.produtos = ConsultarProduto.produtos;
       this.filial = ConsultarProduto.filial;
       this.depositos = ConsultarProduto.depositos;
-
       this.vp.overlay = false;
-      // this.messageService.add({
-      //   severity: 'success',
-      //   summary: 'Dados Carregados',
-      //   detail: 'Dados carregados com sucesso',
-      // });
     } catch (error: any) {
       this.messageService.add({
         severity: 'error',
@@ -138,6 +137,7 @@ export class InputComponent implements OnInit {
         detail: 'Preencha todos os campos obrigatórios!',
       });
     } else {
+      //filtra os dados de acordo com o que foi selecionado
       const produtoFiltrado: any = this.produtos.find(
         (objeto: { desPro: string }) => objeto.desPro === this.Produto
       );
@@ -150,7 +150,7 @@ export class InputComponent implements OnInit {
       const filialFiltrada: any = this.filial.find(
         (objeto: { nomFil: string }) => objeto.nomFil === this.Filial
       );
-
+      //preenche o objeto input com os dados
       let input: input = {
         Filial: this.Filial,
         codigo: produtoFiltrado.codPro,
@@ -207,7 +207,7 @@ export class InputComponent implements OnInit {
       this.dataService.setInputs(input);
     }
   }
-
+  //filtra o deposito de acordo com a filial selecionada
   selecionaDesposito() {
     let codFil = this.filial.find(
       (objeto: { nomFil: string }) => objeto.nomFil === this.Filial
@@ -222,6 +222,7 @@ export class InputComponent implements OnInit {
   clear() {
     this.Filial = '';
     this.Deposito = '';
+    this.boolDeposito = true;
     this.tipoBaixa = '';
     this.Produto = '';
     this.Quantidade = 0;
@@ -231,8 +232,14 @@ export class InputComponent implements OnInit {
   selecionaProduto() {
     this.visible = true;
   }
-  show(){
-    console.log(this.Produto);
-    
-  }
+  
+
+  onPageChange(event:any) {
+    this.first = event.first;
+    this.rows = event.rows;
+}
+clearProduto(table: Table, input:any) {
+  table.clear();
+  input.value = '';
+}
 }

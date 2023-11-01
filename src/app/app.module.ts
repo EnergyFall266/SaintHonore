@@ -34,6 +34,7 @@ import { ToastModule } from 'primeng/toast';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { ListboxModule } from 'primeng/listbox';
+import { PaginatorModule } from 'primeng/paginator';
 export const HttpLoaderFactory = (httpClient: HttpClient) =>
   new TranslateHttpLoader(httpClient, 'assets/i18n/');
 
@@ -68,6 +69,7 @@ export const HttpLoaderFactory = (httpClient: HttpClient) =>
     FileUploadModule,
     ListboxModule,
     DynamicDialogModule,
+    PaginatorModule,
     ToastModule,
     RadioButtonModule,
     TranslateModule.forRoot({
