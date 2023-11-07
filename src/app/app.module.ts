@@ -32,7 +32,6 @@ import { Validate_Service } from 'src/services/Validate_Service';
 import { TableComponent } from './table/table.component';
 import { ToastModule } from 'primeng/toast';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
-import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { ListboxModule } from 'primeng/listbox';
 import { PaginatorModule } from 'primeng/paginator';
 export const HttpLoaderFactory = (httpClient: HttpClient) =>

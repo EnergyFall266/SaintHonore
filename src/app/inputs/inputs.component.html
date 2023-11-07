@@ -68,12 +68,12 @@
       </div>
     </div>
 
-    <div class="col-4 min-w-max">
+    <div class="col-3 min-w-max">
       <div class="grid">
         <div class="col-12 p-0 mb-3 ml-2 -mr-2">
           <span class="font-semibold -mr-2">Produto*</span>
         </div>
-        <div class="col-12 p-0 flex justify-content-between">
+        <div class="col-12 p-0  p-inputgroup">
           <input
             id="disabled-input"
             type="text"
@@ -81,9 +81,10 @@
             [disabled]="true"
             class="w-8"
             [(ngModel)]="Produto"
-          />
-          <p-button (click)="selecionaProduto()" label="Selecionar"></p-button>
-          <p-dialog
+            />
+            <button type="button" pButton (click)="selecionaProduto()" icon="pi pi-search"></button>
+          </div>
+            <p-dialog
             header="Header"
             [(visible)]="visible"
             [style]="{ width: '50vw' }"
@@ -123,7 +124,7 @@
                     </span>
                     <button
                       pButton
-                      label="Limpar"
+                      label="Limpar Pesquisa"
                       class="p-button-outlined ml-auto"
                       (click)="clearProduto(table, input)"
                     ></button>
@@ -136,7 +137,6 @@
               </ng-template>
             </p-table>
           </p-dialog>
-        </div>
       </div>
     </div>
 

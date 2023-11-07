@@ -22,7 +22,8 @@ export class AppComponent {
   @ViewChild(TableComponent) table!: TableComponent;
   @ViewChild(InputComponent) input!: InputComponent;
   ref: DynamicDialogRef | undefined;
-
+  retorno: any;
+  response: any;
   constructor(
     private dataService: DataService,
     private messageService: MessageService,
@@ -95,23 +96,57 @@ export class AppComponent {
       this.vp.overlay = true;
       this.loading = true;
       this.labelButton = 'Emitindo...';
-      await this.appService.gerarNota(this.dadosNota[0]);
+      this.response = await this.appService.gerarNota(this.dadosNota[0]);
+      this.retorno = this.response.retorno;
       this.loading = false;
+      if(Array.isArray(this.response)){
+      this.response.forEach(element => {
+          if(element.retorno.includes('OK')){
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Nota emitida com sucesso',
+              detail: 'Número da Nota: ' + element.numNfv,
+              sticky: true,
+            });
+          }else{
+          this.messageService.add({
+            severity: 'warn',
+            summary: 'Nota não emitida',
+            detail: element.retorno,
+            sticky: true,
+          });}
+          
+        });
+      }else{
+      if(this.retorno.includes('OK')){
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Nota emitida com sucesso',
+          detail: 'Número da Nota: ' + this.response.numNfv,
+          sticky: true,
+        });
+      }else{
       this.messageService.add({
-        severity: 'success',
-        summary: 'Sucesso',
-        detail: 'Nota emitida com sucesso',
-      });
+        severity: 'warn',
+        summary: 'Nota não emitida',
+        detail: this.retorno,
+        sticky: true,
+      });}
+    }
       this.labelButton = 'Confirmar';
       this.vp.overlay = false;
       this.table.clear();
       this.table.ngOnInit();
       this.input.clear();
     } catch (error) {
+      this.labelButton = 'Confirmar';
+      this.vp.overlay = false;
+      this.loading = false;
       this.messageService.add({
         severity: 'error',
         summary: 'Erro',
-        detail: 'Erro ao emitir nota',
+        detail:  this.retorno,
+        sticky: true,
       });
     }
   }
