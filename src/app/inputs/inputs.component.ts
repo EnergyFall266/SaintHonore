@@ -57,7 +57,6 @@ interface CamposUsuario {
   vlrUsu: string;
 }
 
-
 @Component({
   selector: 'app-input',
   templateUrl: './inputs.component.html',
@@ -83,7 +82,7 @@ export class InputComponent {
 
   first: number = 0;
 
-    rows: number = 10;
+  rows: number = 10;
   constructor(
     private dataService: DataService,
     private messageService: MessageService,
@@ -232,14 +231,13 @@ export class InputComponent {
   selecionaProduto() {
     this.visible = true;
   }
-  
 
-  onPageChange(event:any) {
+  onPageChange(event: any) {
     this.first = event.first;
     this.rows = event.rows;
-}
-clearProduto(table: Table, input:any) {
-  table.clear();
-  input.value = '';
-}
+  }
+  clearProduto(table: Table, input: any) {
+    table.clear();
+    input.value = '';
+  }
 }

@@ -99,40 +99,41 @@ export class AppComponent {
       this.response = await this.appService.gerarNota(this.dadosNota[0]);
       this.retorno = this.response.retorno;
       this.loading = false;
-      if(Array.isArray(this.response)){
-      this.response.forEach(element => {
-          if(element.retorno.includes('OK')){
+      if (Array.isArray(this.response)) {
+        this.response.forEach((element) => {
+          if (element.retorno.includes('OK')) {
             this.messageService.add({
               severity: 'success',
               summary: 'Nota emitida com sucesso',
               detail: 'Número da Nota: ' + element.numNfv,
               sticky: true,
             });
-          }else{
+          } else {
+            this.messageService.add({
+              severity: 'warn',
+              summary: 'Nota não emitida',
+              detail: element.retorno,
+              sticky: true,
+            });
+          }
+        });
+      } else {
+        if (this.retorno.includes('OK')) {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Nota emitida com sucesso',
+            detail: 'Número da Nota: ' + this.response.numNfv,
+            sticky: true,
+          });
+        } else {
           this.messageService.add({
             severity: 'warn',
             summary: 'Nota não emitida',
-            detail: element.retorno,
+            detail: this.retorno,
             sticky: true,
-          });}
-          
-        });
-      }else{
-      if(this.retorno.includes('OK')){
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Nota emitida com sucesso',
-          detail: 'Número da Nota: ' + this.response.numNfv,
-          sticky: true,
-        });
-      }else{
-      this.messageService.add({
-        severity: 'warn',
-        summary: 'Nota não emitida',
-        detail: this.retorno,
-        sticky: true,
-      });}
-    }
+          });
+        }
+      }
       this.labelButton = 'Confirmar';
       this.vp.overlay = false;
       this.table.clear();
@@ -145,7 +146,7 @@ export class AppComponent {
       this.messageService.add({
         severity: 'error',
         summary: 'Erro',
-        detail:  this.retorno,
+        detail: this.retorno,
         sticky: true,
       });
     }
