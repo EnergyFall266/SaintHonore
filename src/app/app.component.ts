@@ -139,14 +139,14 @@ export class AppComponent {
       this.table.clear();
       this.table.ngOnInit();
       this.input.clear();
-    } catch (error) {
+    } catch (error:any) {
       this.labelButton = 'Confirmar';
       this.vp.overlay = false;
       this.loading = false;
       this.messageService.add({
         severity: 'error',
         summary: 'Erro',
-        detail: this.retorno,
+        detail: error,
         sticky: true,
       });
     }

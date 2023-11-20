@@ -91,7 +91,7 @@ export class AppService {
     let config = {
       method: 'post',
       maxBodyLength: Infinity,
-      url: 'https://sh.prismainformatica.com.br:8181/API/G5Rest?server=https://localhost:8181&module=sapiens&service=com.senior.g5.co.mcm.ven.notafiscal&port=GravarNotasFiscaisSaida_13',
+      url: 'https://sh.prismainformatica.com.br:8181/SXI-API/G5Rest?server=https://localhost:8181&module=sapiens&service=com.senior.g5.co.mcm.ven.notafiscal&port=GravarNotasFiscaisSaida_13',
       headers: {
         'Content-Type': 'application/json',
         Authorization: 'bearer ' + this.token.access_token,
@@ -104,6 +104,7 @@ export class AppService {
       return response.data.retornosNotasSaida;
     } catch (error: any) {
       throw error;
+      
     }
   }
 }
